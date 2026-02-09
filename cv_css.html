@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modern Professional CV</title>
+
+    <style>
+        :root {
+            --accent: #0f4c81;
+            --accent-light: #e6f0f8;
+            --text: #1f2937;
+            --muted: #6b7280;
+        }
+
+        body {
+            margin: 0;
+            background: #eef2f6;
+            font-family: "Segoe UI", Roboto, Arial, sans-serif;
+            color: var(--text);
+        }
+
+        .page {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 50px 65px;
+            border-top: 10px solid var(--accent);
+        }
+
+        h1 {
+            font-size: 34px;
+            margin-bottom: 6px;
+            color: var(--accent);
+            letter-spacing: 0.5px;
+        }
+
+        .headline {
+            font-size: 17px;
+            font-weight: 500;
+            color: #0f766e;
+            margin-bottom: 18px;
+        }
+
+        .contact {
+            font-size: 14px;
+            margin-bottom: 35px;
+            color: var(--muted);
+        }
+
+        .contact span {
+            margin-right: 18px;
+        }
+
+        section {
+            margin-bottom: 36px;
+        }
+
+        h2 {
+            font-size: 19px;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 14px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid var(--accent-light);
+        }
+
+        p {
+            font-size: 15.5px;
+            line-height: 1.75;
+            margin: 0;
+        }
+
+        /* EXPERIENCE */
+        .entry {
+            margin-bottom: 24px;
+        }
+
+        .title-row {
+            font-weight: 600;
+            font-size: 15.5px;
+        }
+
+        .company {
+            color: var(--accent);
+        }
+
+        .date {
+            float: right;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        ul {
+            margin-top: 8px;
+            padding-left: 18px;
+        }
+
+        li {
+            font-size: 14.5px;
+            margin-bottom: 6px;
+        }
+
+        /* SKILLS */
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill {
+            background: var(--accent-light);
+            color: var(--accent);
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 13.5px;
+            font-weight: 500;
+            border: 1px solid #cfe0f1;
+        }
+
+        /* CLEAR FLOAT */
+        .clear::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <h1>Your Full Name</h1>
+    <div class="headline">Frontend Developer</div>
+
+    <div class="contact">
+        <span>your.email@example.com</span>
+        <span>+123 456 7890</span>
+        <span>City, Country</span>
+        <span>linkedin.com/in/yourname</span>
+    </div>
+
+    <section>
+        <h2>Professional Summary</h2>
+        <p>
+            Frontend developer with a strong eye for design and a focus on
+            building clean, scalable, and user-friendly interfaces using
+            modern web technologies.
+        </p>
+    </section>
+
+    <section>
+        <h2>Skills</h2>
+        <div class="skills">
+            <div class="skill">HTML</div>
+            <div class="skill">CSS</div>
+            <div class="skill">JavaScript</div>
+            <div class="skill">Responsive Design</div>
+            <div class="skill">Accessibility</div>
+            <div class="skill">Git</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Experience</h2>
+
+        <div class="entry clear">
+            <div class="title-row">
+                Frontend Developer — <span class="company">Company Name</span>
+                <span class="date">2022 – Present</span>
+            </div>
+            <ul>
+                <li>Built responsive, accessible web interfaces.</li>
+                <li>Worked closely with designers and engineers.</li>
+                <li>Improved UI consistency and performance.</li>
+            </ul>
+        </div>
+
+        <div class="entry clear">
+            <div class="title-row">
+                Junior Developer — <span class="company">Company Name</span>
+                <span class="date">2020 – 2022</span>
+            </div>
+            <ul>
+                <li>Maintained production codebases.</li>
+                <li>Fixed UI bugs and refactored components.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>Education</h2>
+
+        <div class="entry clear">
+            <div class="title-row">
+                Degree Name — <span class="company">Institution Name</span>
+                <span class="date">2016 – 2020</span>
+            </div>
+            <p>Relevant coursework, honors, or specialization.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>Projects</h2>
+        <ul>
+            <li><strong>Portfolio Website:</strong> Clean, modern personal website.</li>
+            <li><strong>Web Application:</strong> UI-focused application using modern standards.</li>
+        </ul>
+    </section>
+
+</div>
+
+</body>
+</html>
