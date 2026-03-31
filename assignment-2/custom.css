@@ -1,0 +1,258 @@
+/* ════════════════════════════════════════════════════════════════════════════════
+   CUSTOM STYLES - ASSIGNMENT 2: RESPONSIVE NAVIGATION MENU
+   ════════════════════════════════════════════════════════════════════════════════ */
+
+/* ===== CUSTOM RESPONSIVE NAVBAR (Assignment 2) ===== */
+/* [CONCEPT 5.1: DISPLAY PROPERTY] - flexbox for horizontal layout */
+.navbar-custom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Logo styling */
+.navbar-brand-custom {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+/* [CONCEPT 2.4: OBJECT-FIT] - Makes image responsive */
+.navbar-brand-custom .logo-img {
+    width: 110px;
+    height: auto;
+    object-fit: contain;
+}
+
+/* [CONCEPT 5.1: DISPLAY PROPERTY] - Main navigation menu */
+.nav-menu-custom {
+    display: flex;
+    flex-direction: row;
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Navigation list styling */
+.nav-list {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Individual navigation items */
+.nav-item-custom {
+    position: relative;
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Navigation links */
+.nav-link-custom {
+    display: block;
+    color: var(--text-dark);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 18px;
+    font-size: 15px;
+    /* [CONCEPT 6.1: TRANSITIONS] - Smooth color change on hover */
+    transition: color 0.3s ease;
+}
+
+/* [CONCEPT 3.4: PSEUDO-CLASS] - Link hover state */
+.nav-link-custom:hover,
+.nav-link-custom.active {
+    color: var(--secondary-color);
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Dropdown arrow styling */
+.dropdown-arrow {
+    font-size: 12px;
+    margin-left: 5px;
+    transition: transform 0.3s ease;
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Hide Bootstrap's default dropdown arrow */
+/* Bootstrap's .dropdown-toggle::after adds an unwanted arrow, so we hide it */
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Dropdown menu styling */
+.dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    min-width: 200px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    /* [CONCEPT 6.1: TRANSITIONS] - Smooth dropdown animation */
+    transition: all 0.3s ease;
+}
+
+/* [CONCEPT 3.4: PSEUDO-CLASS] - Show dropdown on parent hover */
+.has-dropdown:hover .dropdown-list {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* [CONCEPT 3.4: PSEUDO-CLASS] - Rotate arrow on parent hover */
+.has-dropdown:hover .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Dropdown link styling */
+.dropdown-link {
+    display: block;
+    color: var(--text-dark);
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+/* [CONCEPT 3.4: PSEUDO-CLASS] - Dropdown link hover state */
+.dropdown-link:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    padding-left: 25px;
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Hamburger menu button (hidden by default) */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    gap: 5px;
+}
+
+/* [CONCEPT 2.4: BORDER-RADIUS] - Rounded corners for hamburger lines */
+.hamburger-line {
+    width: 30px;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: 3px;
+    /* [CONCEPT 6.1: TRANSITIONS] - Smooth animation for menu toggle */
+    transition: all 0.3s ease;
+}
+
+/* [CONCEPT 3.4: PSEUDO-CLASS] - Active state for hamburger menu */
+.hamburger-menu.active .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(10px, 10px);
+}
+
+.hamburger-menu.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.active .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(8px, -8px);
+}
+
+/* ===== RESPONSIVE DESIGN - MEDIA QUERIES ===== */
+/* [CONCEPT 5.3: MEDIA QUERIES] - Responsive styles for tablet/mobile devices */
+/* [CONCEPT 5.2: RESPONSIVE BREAKPOINT] - max-width: 768px targets mobile/tablet devices */
+@media (max-width: 768px) {
+    /* [CONCEPT 5.1: DISPLAY PROPERTY] - Show hamburger menu on mobile */
+    .hamburger-menu {
+        display: flex;
+    }
+    
+    /* [CONCEPT 5.1: DISPLAY PROPERTY] - Change nav menu to column layout on mobile */
+    .nav-menu-custom {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background-color: white;
+        max-height: 0;
+        overflow: hidden;
+        /* [CONCEPT 6.1: TRANSITIONS] - Smooth height animation */
+        transition: max-height 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 0 0 8px 8px;
+    }
+    
+    /* [CONCEPT 3.4: PSEUDO-CLASS] - Show menu when active */
+    .nav-menu-custom.active {
+        max-height: 500px;
+    }
+    
+    /* [CONCEPT 3.3: CLASS SELECTOR] - Mobile navigation list layout */
+    .nav-list {
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+    }
+    
+    /* [CONCEPT 3.3: CLASS SELECTOR] - Mobile navigation items */
+    .nav-item-custom {
+        border-bottom: 1px solid #f0f0f0;
+        width: 100%;
+    }
+    
+    /* [CONCEPT 3.3: CLASS SELECTOR] - Mobile navigation links */
+    .nav-link-custom {
+        padding: 15px 20px;
+        /* [CONCEPT 2.3: FONTS & TEXT STYLING] - Slightly larger for touch targets */
+        font-size: 16px;
+    }
+    
+    /* [CONCEPT 3.3: CLASS SELECTOR] - Dropdown list on mobile */
+    .dropdown-list {
+        position: static;
+        opacity: 0;
+        visibility: hidden;
+        transform: scaleY(0);
+        max-height: 0;
+        overflow: hidden;
+        box-shadow: none;
+        border-radius: 0;
+        background-color: #f8f9fa;
+        /* [CONCEPT 6.1: TRANSITIONS] - Smooth dropdown toggle */
+        transition: all 0.3s ease;
+        margin: 0;
+        padding: 0;
+    }
+    
+    /* [CONCEPT 3.4: PSEUDO-CLASS] - Show dropdown when toggled */
+    .nav-item-custom.dropdown-open .dropdown-list {
+        opacity: 1;
+        visibility: visible;
+        transform: scaleY(1);
+        max-height: 300px;
+        padding: 10px 0;
+    }
+    
+    /* [CONCEPT 3.3: CLASS SELECTOR] - Mobile dropdown links */
+    .dropdown-link {
+        padding-left: 40px;
+        font-size: 15px;
+    }
+    
+    /* [CONCEPT 3.4: PSEUDO-CLASS] - Hover state for mobile dropdowns */
+    .dropdown-link:hover {
+        padding-left: 45px;
+    }
+    
+    /* [CONCEPT 3.3: CLASS SELECTOR] - Hide dropdown arrow animation on mobile */
+    .has-dropdown:hover .dropdown-arrow {
+        transform: none;
+    }
+    
+    /* [CONCEPT 3.3: CLASS SELECTOR] - Dropdown arrow rotation on mobile */
+    .nav-item-custom.dropdown-open .dropdown-arrow {
+        transform: rotate(180deg);
+    }
+}
