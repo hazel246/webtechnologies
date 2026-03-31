@@ -77,80 +77,89 @@
     <!-- [CONCEPT 1.1: SEMANTIC HTML] - Using <header> semantic tag for main page header -->
     <!-- [CONCEPT 5.2: POSITIONING] - Class 'sticky-top' positions header fixed at top -->
     <!-- Main Header -->
-    <header class="main-header sticky-top bg-white shadow-sm">
+    <header class="main-header">
         <div class="container">
             <!-- [CONCEPT 1.1: SEMANTIC HTML] - <nav> semantic tag for navigation -->
             <!-- [CONCEPT 5.1: DISPLAY PROPERTY] - navbar uses flexbox for horizontal layout -->
-            <nav class="navbar navbar-expand-lg navbar-light">
+            <nav class="navbar-custom">
                 <!-- [CONCEPT 1.3: HTML ELEMENTS & ATTRIBUTES] - Logo with img element -->
                 <!-- [CONCEPT 1.5: LINKS] → href="#" links back to homepage -->
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand-custom" href="#">
                     <!-- [CONCEPT 1.3: ATTRIBUTES] → alt attribute for image accessibility -->
-                    <img src="images/mfesl.png" alt="MFES Solar Energy" style="width: 110px;">
+                    <img src="images/mfesl.png" alt="MFES Solar Energy" class="logo-img">
                 </a>
-                <!-- [CONCEPT 1.3: HTML ELEMENTS & ATTRIBUTES] - Button with data-bs attributes -->
-                <!-- data-bs-toggle and data-bs-target are Bootstrap data attributes -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-                    <span class="navbar-toggler-icon"></span>
+                
+                <!-- [CONCEPT 5.3: RESPONSIVE DESIGN] - Hamburger button for mobile menu toggle -->
+                <!-- [CONCEPT 3.4: PSEUDO-CLASS] - This button shows only on mobile via media query -->
+                <button class="hamburger-menu" id="hamburgerBtn" aria-label="Toggle navigation menu">
+                    <!-- [CONCEPT 1.4: SEMANTIC ELEMENTS] - Visual hamburger icon with 3 lines -->
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
                 </button>
-                <!-- [CONCEPT 3.3: CLASS SELECTOR] - collapse class for responsive menu -->
-                <div class="collapse navbar-collapse" id="mainNav">
+                
+                <!-- [CONCEPT 3.3: CLASS SELECTOR] - Main navigation menu -->
+                <!-- [CONCEPT 5.1: DISPLAY PROPERTY] - Uses flexbox for horizontal layout on desktop -->
+                <div class="nav-menu-custom" id="navMenu">
                     <!-- [CONCEPT 1.4: LISTS] - Using <ul> unordered list for navigation -->
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="nav-list">
                         <!-- [CONCEPT 1.5: LINKS] → Navigation links with href to page sections -->
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#home">Home</a>
+                        <li class="nav-item-custom">
+                            <a class="nav-link-custom active" href="#home">Home</a>
                         </li>
-                        <!-- [CONCEPT 1.3: ATTRIBUTES] - role="button" makes dropdown accessible as button -->
-                        <!-- [CONCEPT 3.3: CLASS SELECTOR] - dropdown class creates Bootstrap dropdown menu -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <!-- [CONCEPT 1.3: ATTRIBUTES] - role="button" makes dropdown accessible -->
+                        <!-- [CONCEPT 5.3: INTERACTIVE ELEMENTS] - Dropdown for Company Profile -->
+                        <li class="nav-item-custom has-dropdown">
+                            <a class="nav-link-custom dropdown-toggle" href="#">
                                 Company Profile
+                                <span class="dropdown-arrow">▼</span>
                             </a>
                             <!-- [CONCEPT 1.4: LISTS] - Nested dropdown list -->
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#about">About Us</a></li>
-                                <li><a class="dropdown-item" href="#ceo">CEO Message</a></li>
+                            <ul class="dropdown-list">
+                                <li><a href="#about" class="dropdown-link">About Us</a></li>
+                                <li><a href="#ceo" class="dropdown-link">CEO Message</a></li>
                             </ul>
                         </li>
                         <!-- [CONCEPT 3.3: CLASS SELECTOR] - Same dropdown pattern for products -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <li class="nav-item-custom has-dropdown">
+                            <a class="nav-link-custom dropdown-toggle" href="#">
                                 Our Products
+                                <span class="dropdown-arrow">▼</span>
                             </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#panels">Solar Panels</a></li>
-                                <li><a class="dropdown-item" href="#inverters">Solar Inverters</a></li>
-                                <li><a class="dropdown-item" href="#batteries">Solar Batteries</a></li>
+                            <ul class="dropdown-list">
+                                <li><a href="#panels" class="dropdown-link">Solar Panels</a></li>
+                                <li><a href="#inverters" class="dropdown-link">Solar Inverters</a></li>
+                                <li><a href="#batteries" class="dropdown-link">Solar Batteries</a></li>
                             </ul>
                         </li>
                         <!-- [CONCEPT 3.3: CLASS SELECTOR] - Another dropdown for solutions -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <li class="nav-item-custom has-dropdown">
+                            <a class="nav-link-custom dropdown-toggle" href="#">
                                 Our Solutions
+                                <span class="dropdown-arrow">▼</span>
                             </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#residential">Residential Solar</a></li>
-                                <li><a class="dropdown-item" href="#commercial">Commercial Solar</a></li>
-                                <li><a class="dropdown-item" href="#industrial">Industrial Solar</a></li>
-                                <li><a class="dropdown-item" href="#agriculture">Agriculture Solar</a></li>
+                            <ul class="dropdown-list">
+                                <li><a href="#residential" class="dropdown-link">Residential Solar</a></li>
+                                <li><a href="#commercial" class="dropdown-link">Commercial Solar</a></li>
+                                <li><a href="#industrial" class="dropdown-link">Industrial Solar</a></li>
+                                <li><a href="#agriculture" class="dropdown-link">Agriculture Solar</a></li>
                             </ul>
                         </li>
                         <!-- [CONCEPT 1.5: LINKS] → Simple navigation links -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="#projects">Projects</a>
+                        <li class="nav-item-custom">
+                            <a class="nav-link-custom" href="#projects">Projects</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#reviews">Reviews</a>
+                        <li class="nav-item-custom">
+                            <a class="nav-link-custom" href="#reviews">Reviews</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#blog">Blog</a>
+                        <li class="nav-item-custom">
+                            <a class="nav-link-custom" href="#blog">Blog</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#calculate">Calculate</a>
+                        <li class="nav-item-custom">
+                            <a class="nav-link-custom" href="#calculate">Calculate</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#contact">Contact Us</a>
+                        <li class="nav-item-custom">
+                            <a class="nav-link-custom" href="#contact">Contact Us</a>
                         </li>
                     </ul>
                 </div>
@@ -909,5 +918,8 @@
     <!-- [CONCEPT 2.1: CSS SYNTAX & METHODS] - External JavaScript file (best practice) -->
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- [CONCEPT 5.4: ASSIGNMENT 2] - Vanilla JavaScript for responsive hamburger menu -->
+    <script src="js/main.js"></script>
 </body>
 </html>
