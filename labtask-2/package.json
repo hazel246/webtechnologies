@@ -1,0 +1,20 @@
+{
+  "name": "labtask-2-express-app",
+  "version": "1.0.0",
+  "description": "MFES Solar Energy Landing Page - Express.js with EJS",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": ["express", "ejs", "solar", "energy"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1",
+    "ejs": "^5.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
