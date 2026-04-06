@@ -1,0 +1,1831 @@
+/* ════════════════════════════════════════════════════════════════════════════════
+   📚 WEB TECHNOLOGIES CONCEPTS - MFES SOLAR PROJECT
+   
+   This CSS file demonstrates all concepts from:
+   ✓ 1 HTML Basics.pdf
+   ✓ 2 More Basic HTMLCSS.pdf
+   ✓ 3 Page Sections and CSS Box Model.pdf
+   ✓ 4 Layout Designing CSS.pdf
+   
+   Each concept is marked with [CONCEPT] tags throughout the file.
+   ════════════════════════════════════════════════════════════════════════════════ */
+
+/* [CONCEPT 2.4: BACKGROUNDS & GRADIENTS] [CONCEPT 2.3: FONTS] */
+/* Import Google Fonts - Custom fonts from Google's library */
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Lato:wght@400;700&display=swap');
+
+/* [CONCEPT 3.6: CASCADE & SPECIFICITY] */
+/* CSS Variables - Define colors once, reuse everywhere (easier to maintain) */
+:root {
+    --primary-color: #003399;        /* HEX Color Format */
+    --secondary-color: #FFCC00;      /* HEX Color Format */
+    --dark-color: #1a1a1a;
+    --light-color: #f8f9fa;
+    --text-dark: #333333;
+    --text-light: #666666;
+}
+
+/* [CONCEPT 4.1: BOX MODEL - RESET ALL] */
+/* [CONCEPT 3.1: ELEMENT SELECTOR] */
+/* Universal selector (*) targets ALL elements */
+* {
+    margin: 0;                       /* Remove default outer space */
+    padding: 0;                      /* Remove default inner space */
+    box-sizing: border-box;          /* Include padding/border in width calculation */
+}
+
+/* [CONCEPT 3.7: INHERITANCE] → Body sets inherited properties for whole page */
+/* [CONCEPT 3.1: ELEMENT SELECTOR] → Target <body> tag */
+/* [CONCEPT 2.3: FONTS & TEXT STYLING] → Set font family, color, line-height */
+body {
+    font-family: 'Lato', sans-serif;   /* Web font + fallback */
+    color: var(--text-dark);           /* Inherited by ALL text elements */
+    line-height: 1.6;                  /* Inherited by ALL text elements */
+    overflow-x: hidden;                /* Hide horizontal scroll */
+}
+
+/* [CONCEPT 3.1: ELEMENT SELECTOR] → Target all heading tags */
+/* [CONCEPT 3.7: INHERITANCE] → Headings inherit color/line-height from body, add their own font */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lexend', sans-serif; /* Override body's font-family for headings */
+    font-weight: 700;                  /* Bold weight */
+}
+
+/* [CONCEPT 4.1: BOX MODEL - PADDING] */
+/* [CONCEPT 3.3: CLASS SELECTOR] → Target elements with class="top-bar-wrapper" */
+/* [CONCEPT 2.2: COLORS & OPACITY] → Using HEX color from CSS variable */
+.top-bar-wrapper {
+    /* [CONCEPT 2.2: COLORS & OPACITY] - Using CSS variable for brand color */
+    background-color: var(--primary-color);
+    /* [CONCEPT 4.1: BOX MODEL - PADDING] - 10px vertical, 0px horizontal spacing */
+    padding: 10px 0;
+    font-size: 14px;
+}
+
+/* [CONCEPT 3.4: PSEUDO-CLASS] → :hover state changes when mouse hovers over element */
+/* [CONCEPT 6.1: ANIMATIONS & TRANSITIONS] → Smooth color change using transition property */
+.top-bar-wrapper a {
+    color: white;
+    /* [CONCEPT 6.1: TRANSITIONS] - Transition defines how property changes animate */
+    /* Syntax: transition: property duration timing-function; */
+    transition: color 0.3s ease;       /* Change color smoothly over 0.3 seconds */
+    font-size: 14px;
+}
+
+/* [CONCEPT 3.4: PSEUDO-CLASS] - :hover applies when user hovers mouse over element */
+.top-bar-wrapper a:hover {
+    color: var(--secondary-color);     /* Change to yellow when mouse hovers */
+}
+
+.top-bar-wrapper i {
+    font-size: 14px;
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Selects all elements with class "social-icons" -->
+/* [CONCEPT 5.1: DISPLAY PROPERTY] - display: inline-block mixes inline + block properties */
+.social-icons a {
+    display: inline-block;             /* Sit side-by-side horizontally, but allow width/height */
+    font-size: 16px;
+}
+
+/* ===== HEADER SECTION ===== */
+/* [CONCEPT 3.1: ELEMENT SELECTOR] - Targets all .main-header elements */
+.main-header {
+    /* [CONCEPT 4.1: BOX MODEL - PADDING] - Creates internal spacing */
+    padding: 10px 0;
+    /* [CONCEPT 6.1: TRANSITIONS] - Animates all property changes */
+    transition: all 0.3s ease;
+    /* [CONCEPT 5.2: POSITIONING] - sticky-top keeps header visible while scrolling */
+    position: sticky;
+    top: 0;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+/* ===== CUSTOM RESPONSIVE NAVBAR (Assignment 2) ===== */
+/* [CONCEPT 5.1: DISPLAY PROPERTY] - flexbox for horizontal layout */
+.navbar-custom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Logo styling */
+.navbar-brand-custom {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+/* [CONCEPT 2.4: OBJECT-FIT] - Makes image responsive */
+.navbar-brand-custom .logo-img {
+    width: 110px;
+    height: auto;
+    object-fit: contain;
+}
+
+/* [CONCEPT 5.1: DISPLAY PROPERTY] - Main navigation menu */
+.nav-menu-custom {
+    display: flex;
+    flex-direction: row;
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Navigation list styling */
+.nav-list {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Individual navigation items */
+.nav-item-custom {
+    position: relative;
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Navigation links */
+.nav-link-custom {
+    display: block;
+    color: var(--text-dark);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 18px;
+    font-size: 15px;
+    /* [CONCEPT 6.1: TRANSITIONS] - Smooth color change on hover */
+    transition: color 0.3s ease;
+}
+
+/* [CONCEPT 3.4: PSEUDO-CLASS] - Link hover state */
+.nav-link-custom:hover,
+.nav-link-custom.active {
+    color: var(--secondary-color);
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Dropdown arrow styling */
+.dropdown-arrow {
+    font-size: 12px;
+    margin-left: 5px;
+    transition: transform 0.3s ease;
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Hide Bootstrap's default dropdown arrow */
+/* Bootstrap's .dropdown-toggle::after adds an unwanted arrow, so we hide it */
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Dropdown menu styling */
+.dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    min-width: 200px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    /* [CONCEPT 6.1: TRANSITIONS] - Smooth dropdown animation */
+    transition: all 0.3s ease;
+}
+
+/* [CONCEPT 3.4: PSEUDO-CLASS] - Show dropdown on parent hover */
+.has-dropdown:hover .dropdown-list {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* [CONCEPT 3.4: PSEUDO-CLASS] - Rotate arrow on parent hover */
+.has-dropdown:hover .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Dropdown link styling */
+.dropdown-link {
+    display: block;
+    color: var(--text-dark);
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+/* [CONCEPT 3.4: PSEUDO-CLASS] - Dropdown link hover state */
+.dropdown-link:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    padding-left: 25px;
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Hamburger menu button (hidden by default) */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    gap: 5px;
+}
+
+/* [CONCEPT 2.4: BORDER-RADIUS] - Rounded corners for hamburger lines */
+.hamburger-line {
+    width: 30px;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: 3px;
+    /* [CONCEPT 6.1: TRANSITIONS] - Smooth animation for menu toggle */
+    transition: all 0.3s ease;
+}
+
+/* [CONCEPT 3.4: PSEUDO-CLASS] - Active state for hamburger menu */
+.hamburger-menu.active .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(10px, 10px);
+}
+
+.hamburger-menu.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.active .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(8px, -8px);
+}
+
+/* ===== RESPONSIVE DESIGN - MEDIA QUERIES ===== */
+/* [CONCEPT 5.3: MEDIA QUERIES] - Responsive styles for tablet/mobile devices */
+/* [CONCEPT 5.2: RESPONSIVE BREAKPOINT] - max-width: 768px targets mobile/tablet devices */
+@media (max-width: 768px) {
+    /* [CONCEPT 5.1: DISPLAY PROPERTY] - Show hamburger menu on mobile */
+    .hamburger-menu {
+        display: flex;
+    }
+    
+    /* [CONCEPT 5.1: DISPLAY PROPERTY] - Change nav menu to column layout on mobile */
+    .nav-menu-custom {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background-color: white;
+        max-height: 0;
+        overflow: hidden;
+        /* [CONCEPT 6.1: TRANSITIONS] - Smooth height animation */
+        transition: max-height 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 0 0 8px 8px;
+    }
+    
+    /* [CONCEPT 3.4: PSEUDO-CLASS] - Show menu when active */
+    .nav-menu-custom.active {
+        max-height: 500px;
+    }
+    
+    /* [CONCEPT 3.3: CLASS SELECTOR] - Mobile navigation list layout */
+    .nav-list {
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+    }
+    
+    /* [CONCEPT 3.3: CLASS SELECTOR] - Mobile navigation items */
+    .nav-item-custom {
+        border-bottom: 1px solid #f0f0f0;
+        width: 100%;
+    }
+    
+    /* [CONCEPT 3.3: CLASS SELECTOR] - Mobile navigation links */
+    .nav-link-custom {
+        padding: 15px 20px;
+        /* [CONCEPT 2.3: FONTS & TEXT STYLING] - Slightly larger for touch targets */
+        font-size: 16px;
+    }
+    
+    /* [CONCEPT 3.3: CLASS SELECTOR] - Dropdown list on mobile */
+    .dropdown-list {
+        position: static;              /* Changed from absolute to static */
+        opacity: 0;
+        visibility: hidden;
+        transform: scaleY(0);
+        max-height: 0;
+        overflow: hidden;
+        box-shadow: none;
+        border-radius: 0;
+        background-color: #f8f9fa;
+        /* [CONCEPT 6.1: TRANSITIONS] - Smooth dropdown toggle */
+        transition: all 0.3s ease;
+        margin: 0;
+        padding: 0;
+    }
+    
+    /* [CONCEPT 3.4: PSEUDO-CLASS] - Show dropdown when toggled */
+    .nav-item-custom.dropdown-open .dropdown-list {
+        opacity: 1;
+        visibility: visible;
+        transform: scaleY(1);
+        max-height: 500px;             /* Increased to show all items */
+        padding: 10px 0;
+    }
+    
+    /* [CONCEPT 3.3: CLASS SELECTOR] - Mobile dropdown links */
+    .dropdown-link {
+        display: block;                /* Ensure full width clickable area */
+        padding: 12px 40px;            /* Better vertical padding */
+        font-size: 15px;
+        color: var(--text-dark);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    /* [CONCEPT 3.4: PSEUDO-CLASS] - Hover state for mobile dropdowns */
+    .dropdown-link:hover {
+        background-color: var(--secondary-color);
+        color: var(--primary-color);
+        padding-left: 45px;
+    }
+    
+    /* [CONCEPT 3.3: CLASS SELECTOR] - Hide dropdown arrow animation on mobile */
+    .has-dropdown:hover .dropdown-arrow {
+        transform: none;
+    }
+    
+    /* [CONCEPT 3.3: CLASS SELECTOR] - Dropdown arrow rotation on mobile */
+    .nav-item-custom.dropdown-open .dropdown-arrow {
+        transform: rotate(180deg);
+    }
+}
+
+/* ===== HERO SECTION ===== */
+/* [CONCEPT 3.3: CLASS SELECTOR] - Hero section styling */
+/* [CONCEPT 2.4: GRADIENTS] - Multiple layered gradients for visual effect */
+.hero-section {
+    /* Gradient syntax: linear-gradient(angle, color1 %, color2 %); */
+    /* First gradient: semi-transparent blue overlay */
+    /* Second gradient: blue to darker blue transition */
+    background: linear-gradient(rgba(0, 51, 153, 0.7), rgba(0, 51, 153, 0.7)), 
+                linear-gradient(135deg, #003399 0%, #0055cc 100%);
+    /* [CONCEPT 5.1: DISPLAY & LAYOUT] - min-height ensures section is tall enough */
+    min-height: 700px;
+    /* [CONCEPT 5.1: DISPLAY PROPERTY] - display: flex enables flexbox layout */
+    display: flex;
+    /* [CONCEPT 5.3: FLEXBOX] - align-items: center vertically centers all items */
+    align-items: center;
+    /* [CONCEPT 4.1: BOX MODEL - PADDING] - 80px vertical, 0px horizontal padding */
+    padding: 80px 0;
+    /* [CONCEPT 5.2: POSITIONING] - relative positioning for stacking context */
+    position: relative;
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Hero content heading styles */
+.hero-content h5 {
+    font-size: 13px;
+    /* [CONCEPT 2.3: FONTS & TEXT STYLING] - letter-spacing adds space between characters */
+    letter-spacing: 2px;
+    font-weight: 400;
+    /* [CONCEPT 2.2: COLORS & OPACITY] - rgba with 0.9 alpha for semi-transparent white */
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* [CONCEPT 3.1: ELEMENT SELECTOR] - h1 inside hero-content */
+.hero-content h1 {
+    /* [CONCEPT 2.3: FONTS & TEXT STYLING] - Large font size for main heading */
+    font-size: 46px;
+    /* [CONCEPT 2.3: LINE-HEIGHT] - 1.2 means 120% of font size for spacing between lines */
+    line-height: 1.2;
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Lead paragraph (larger text) styling */
+.hero-content .lead {
+    font-size: 17px;
+    font-weight: 400;
+    /* [CONCEPT 2.3: LINE-HEIGHT] - 1.7 provides comfortable reading line spacing */
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Rating section with flexbox */
+/* [CONCEPT 5.3: FLEXBOX] - inline-flex makes container sit inline while using flex layout */
+.rating-section {
+    /* [CONCEPT 2.2: COLORS & OPACITY] - rgba with 0.1 alpha creates subtle background */
+    background: rgba(255, 255, 255, 0.1);
+    padding: 12px 20px;
+    /* [CONCEPT 2.4: BORDER-RADIUS] - 50px creates pill shape (border-radius: 50% creates circle) */
+    border-radius: 50px;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Star icons in rating */
+.rating-section .stars i {
+    font-size: 18px;
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Hero statistics styling */
+.hero-stats .stat-item h3 {
+    font-size: 40px;
+    line-height: 1;
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Stat item paragraphs */
+.hero-stats .stat-item p {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+}
+
+/* Hero Image Slider */
+.hero-image-slider {
+    position: relative;
+}
+
+.carousel-inner {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 15px;
+}
+
+/* Fade effect for carousel */
+.carousel-fade .carousel-item {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.carousel-fade .carousel-item.active {
+    opacity: 1;
+}
+
+/* ===== BUTTONS ===== */
+.btn-warning {
+    background-color: var(--secondary-color);
+    border: 2px solid var(--secondary-color);
+    color: var(--primary-color);
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 12px 30px;
+    transition: all 0.3s ease;
+}
+
+.btn-warning:hover {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 204, 0, 0.4);
+}
+
+.btn-outline-light {
+    border: 2px solid white;
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 12px 30px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-light:hover {
+    background-color: white;
+    color: var(--primary-color);
+    border-color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+}
+
+/* ===== ABOUT SECTION ===== */
+.about-section {
+    background-color: white;
+    padding: 80px 0;
+}
+
+.section-label {
+    position: relative;
+    display: inline-block;
+}
+
+.section-label span {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--secondary-color);
+}
+
+/* [CONCEPT 3.5: PSEUDO-ELEMENTS] - ::before creates content before element */
+/* [CONCEPT 5.2: POSITIONING] - absolute positioning relative to parent */
+.section-label::before {
+    /* [CONCEPT 3.5: PSEUDO-ELEMENTS] - 'content' property required for pseudo-elements */
+    /* Empty string '' creates element with no text content */
+    content: '';
+    /* [CONCEPT 5.2: POSITIONING - ABSOLUTE] - Positions relative to nearest positioned parent */
+    position: absolute;
+    /* [CONCEPT 5.2: POSITIONING PROPERTIES] - top, left define position offset */
+    top: -15px;                       /* 15px above the element */
+    left: 0;                          /* Align with left edge of parent */
+    /* [CONCEPT 4.1: BOX MODEL] - Width and height for the decorative line */
+    width: 50px;
+    height: 4px;
+    background-color: var(--secondary-color);
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Video container with relative positioning */
+/* [CONCEPT 5.2: POSITIONING - RELATIVE] - Creates positioning context for children */
+.video-container {
+    /* [CONCEPT 5.2: POSITIONING - RELATIVE] - Relative doesn't remove element from flow */
+    /* But creates reference point for absolutely positioned children */
+    position: relative;
+    width: 100%;
+    background-color: #f0f0f0;
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Iframe inside video container */
+.video-container iframe {
+    /* [CONCEPT 5.1: DISPLAY PROPERTY] - display: block removes inline spacing */
+    display: block;
+    width: 100%;
+}
+
+.about-info {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.about-info h4 span {
+    font-size: 18px;
+}
+
+.about-content h2 {
+    font-size: 44px;
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+
+.about-content h2 span {
+    color: var(--primary-color);
+    display: inline;
+}
+
+.about-content p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--text-light);
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #002266;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 51, 153, 0.3);
+}
+
+/* ===== SERVICES SECTION ===== */
+.services-section {
+    padding: 80px 0;
+}
+
+.services-section h2 {
+    font-size: 48px;
+    line-height: 1.2;
+}
+
+.services-section .text-primary {
+    color: var(--primary-color);
+}
+
+.service-card {
+    transition: all 0.3s ease;
+    border: none;
+    height: 100%;
+    /* [CONCEPT 5.1: DISPLAY PROPERTY] - Flex layout for vertical stacking */
+    display: flex;
+    /* [CONCEPT 5.3: FLEXBOX PROPERTIES] - flex-direction: column stacks items vertically */
+    flex-direction: column;
+}
+
+/* [CONCEPT 3.4: PSEUDO-CLASS] - :hover state for service cards */
+/* [CONCEPT 6.1: ANIMATIONS & TRANSITIONS] - Smooth hover effects */
+.service-card:hover {
+    /* [CONCEPT 6.1: TRANSFORMS] - transform property changes element appearance */
+    /* translateY(-10px) moves card up 10px when hovered */
+    transform: translateY(-10px);
+    /* [CONCEPT 4.4: BOX SHADOW] - Enhanced shadow on hover for depth */
+    /* !important forces this rule to override other shadows */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Service image container */
+.service-image {
+    height: 280px;
+    overflow: hidden;              /* Hides content that exceeds container */
+    position: relative;            /* Creates position context for children */
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Images inside service cards */
+.service-image img {
+    width: 100%;
+    height: 100%;
+    /* [CONCEPT 2.3: OBJECT-FIT] - Controls how image fills container */
+    /* cover = image covers container, may crop image */
+    object-fit: cover;
+    /* [CONCEPT 6.1: TRANSITIONS] - Smooth transform animation on hover */
+    transition: transform 0.3s ease;
+}
+
+/* [CONCEPT 3.5: PSEUDO-ELEMENTS] - ::after creates decorative box on image */
+.service-image::after {
+    content: '';                   /* Empty content for decoration */
+    position: absolute;            /* Position relative to service-image */
+    bottom: 15px;                  /* 15px from bottom */
+    right: 15px;                   /* 15px from right */
+    width: 50px;
+    height: 50px;
+    background-color: var(--primary-color);
+    border-radius: 8px;
+    /* [CONCEPT 5.3: FLEXBOX] - Flexbox used to center icon inside */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* [CONCEPT 3.5: PSEUDO-ELEMENTS] - ::before creates sun icon */
+.service-image::before {
+    /* [CONCEPT 3.5: PSEUDO-ELEMENTS] - Content can be text, special characters, or empty */
+    content: '☀';                 /* Sun emoji character */
+    position: absolute;
+    bottom: 22px;
+    right: 22px;
+    font-size: 26px;
+    color: white;
+    /* [CONCEPT 5.2: Z-INDEX] - Stacking order: 2 puts icon on top of ::after (implicit 1) */
+    z-index: 2;
+}
+
+/* [CONCEPT 3.4: PSEUDO-CLASS] + [CONCEPT 3.3: DESCENDANT SELECTOR] */
+/* Scales image on card hover */
+.service-card:hover .service-image img {
+    /* [CONCEPT 6.1: TRANSFORMS] - scale(1.05) enlarges image by 5% on hover */
+    transform: scale(1.05);
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Service card content */
+.service-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    background-color: white;
+}
+
+.service-content h3 {
+    font-size: 22px;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+}
+
+.service-content p {
+    flex-grow: 1;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-light);
+    margin-bottom: 15px;
+}
+
+/* ===== PROCESS SECTION ===== */
+.process-section {
+    background-color: #f8f9fa;
+    padding: 80px 0;
+}
+
+.process-section h2 {
+    font-size: 48px;
+    line-height: 1.2;
+}
+
+.process-section .text-primary {
+    color: var(--primary-color);
+}
+
+.process-card {
+    background-color: white;
+    padding: 50px 35px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    position: relative;
+    text-align: center;
+}
+
+.process-card:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    transform: translateY(-8px);
+}
+
+.process-number {
+    width: 60px;
+    height: 60px;
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 3px solid var(--secondary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 auto 20px;
+}
+
+.process-icon {
+    font-size: 56px;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    opacity: 0.9;
+}
+
+.process-card h4 {
+    font-size: 18px;
+    color: var(--text-dark);
+}
+
+.process-card p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* ===== RESPONSIVE DESIGN WITH MEDIA QUERIES ===== */
+/* [CONCEPT 5.4: RESPONSIVE DESIGN] + [CONCEPT 6.2: MEDIA QUERIES] */
+/* Media queries apply different styles based on screen size */
+/* Syntax: @media (condition) { rules that apply when condition is true } */
+
+/* [CONCEPT 6.2: MEDIA QUERIES] - Extra large devices (1200px and below) */
+@media (max-width: 1200px) {
+    .hero-content h1 {
+        font-size: 40px;
+    }
+}
+
+/* [CONCEPT 6.2: MEDIA QUERIES] - Large devices (tablets and small desktops) */
+/* max-width: 992px means these rules apply when screen is 992px or smaller */
+@media (max-width: 992px) {
+    /* [CONCEPT 3.3: CLASS SELECTOR] - Heading adjusts for medium screens */
+    .hero-content h1 {
+        font-size: 36px;              /* Reduce from 46px for smaller screens */
+    }
+    
+    /* [CONCEPT 3.3: CLASS SELECTOR] - Hero section adjusts height */
+    .hero-section {
+        min-height: 600px;            /* Reduce from 700px */
+        padding: 60px 0;              /* Reduce from 80px */
+    }
+
+    .carousel-item img {
+        max-height: 500px;
+    }
+
+    /* Improve spacing for sections */
+    .services-section h2 {
+        font-size: 40px;
+    }
+
+    .process-section h2 {
+        font-size: 40px;
+    }
+
+    .about-content h2 {
+        font-size: 38px;
+    }
+
+    /* Better button padding */
+    .btn {
+        padding: 11px 28px;
+    }
+}
+
+/* [CONCEPT 6.2: MEDIA QUERIES] - Tablets (882px and below) */
+@media (max-width: 882px) {
+    .hero-content h1 {
+        font-size: 32px;
+    }
+
+    .hero-section {
+        min-height: 550px;
+        padding: 50px 0;
+    }
+
+    .carousel-item img {
+        max-height: 400px;
+    }
+
+    .service-image {
+        height: 220px;
+    }
+}
+
+/* [CONCEPT 6.2: MEDIA QUERIES] - Tablets and medium devices */
+/* These rules apply when screen is 768px or smaller */
+@media (max-width: 768px) {
+    /* Hide hero carousel image on tablets - better for space */
+    .hero-image-slider {
+        display: none;
+    }
+
+    /* [CONCEPT 2.3: TEXT STYLING] - Further reduce heading size for tablets */
+    .hero-content h1 {
+        font-size: 30px;              /* Further reduction for tablets */
+    }
+
+    .hero-content h5 {
+        font-size: 12px;              /* Reduce subheading size */
+    }
+
+    .hero-content .lead {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .hero-buttons .btn {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+
+    .hero-stats {
+        gap: 20px !important;
+        flex-wrap: wrap;
+    }
+
+    .hero-stats .stat-item h3 {
+        font-size: 32px;
+    }
+
+    .carousel-item img {
+        max-height: 350px;
+    }
+
+    .rating-section {
+        font-size: 14px;
+        padding: 10px 16px;
+    }
+
+    .top-bar-wrapper {
+        font-size: 12px;
+        padding: 8px 0;
+    }
+
+    .about-content h2 {
+        font-size: 32px;
+    }
+
+    .services-section h2 {
+        font-size: 36px;
+    }
+
+    .process-section h2 {
+        font-size: 36px;
+    }
+
+    .process-card {
+        padding: 35px 25px;
+        margin-bottom: 20px;
+    }
+
+    .process-icon {
+        font-size: 45px;
+    }
+
+    .process-number {
+        width: 55px;
+        height: 55px;
+        font-size: 26px;
+    }
+
+    .service-image {
+        height: 240px;
+    }
+
+    /* Reduce section padding for better mobile layout */
+    .about-section {
+        padding: 50px 0;
+    }
+
+    .services-section {
+        padding: 50px 0;
+    }
+
+    .process-section {
+        padding: 50px 0;
+    }
+
+    .products-section {
+        padding: 50px 0;
+    }
+
+    .why-choose-us-section {
+        padding: 50px 0;
+    }
+
+    .faq-quote-section {
+        padding: 50px 0;
+    }
+
+    /* Improve form spacing */
+    .quote-form-container h3 {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    .quote-form-container .form-control {
+        padding: 11px 18px;
+        font-size: 13px;
+        margin-bottom: 12px;
+    }
+
+    /* Footer improvements */
+    .footer-section h5 {
+        font-size: 16px;
+        margin-bottom: 18px;
+    }
+
+    .footer-section {
+        text-align: center;
+    }
+
+    .footer-section ul {
+        text-align: center;
+    }
+
+    .footer-section hr {
+        margin: 30px 0;
+    }
+
+    /* CTA Section */
+    .cta-section {
+        padding: 50px 0;
+        min-height: auto;
+    }
+
+    .cta-section h2 {
+        font-size: 32px;
+        margin-bottom: 15px;
+    }
+
+    .cta-section .lead {
+        font-size: 14px;
+    }
+
+    .cta-contact {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding: 15px 20px;
+        width: 100%;
+    }
+
+    .cta-contact a {
+        text-align: center;
+    }
+}
+
+/* [CONCEPT 6.2: MEDIA QUERIES] - Small devices / Phones (640px and below) */
+@media (max-width: 640px) {
+    /* Hide hero image slider on mobile - takes too much space */
+    .hero-image-slider {
+        display: none;
+    }
+
+    /* Make hero content full width when image is hidden */
+    .hero-section .col-lg-6:first-child {
+        margin-bottom: 0;
+    }
+
+    /* Navbar adjustments */
+    .navbar-brand img {
+        width: 95px;
+    }
+
+    .navbar-nav .nav-link {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+
+    /* Hero section */
+    .hero-content h1 {
+        font-size: 26px;
+        margin-bottom: 15px;
+    }
+
+    .hero-content h5 {
+        font-size: 11px;
+        margin-bottom: 10px;
+    }
+
+    .hero-content .lead {
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+
+    .hero-section {
+        min-height: auto;
+        padding: 40px 0;
+    }
+
+    .carousel-item img {
+        max-height: 300px;
+    }
+
+    .rating-section {
+        font-size: 12px;
+        padding: 8px 14px;
+        margin-bottom: 15px;
+    }
+
+    .hero-stats {
+        gap: 15px !important;
+    }
+
+    .hero-stats .stat-item h3 {
+        font-size: 28px;
+    }
+
+    .hero-buttons .btn {
+        padding: 11px 18px;
+        font-size: 13px;
+    }
+
+    /* Section headings */
+    .services-section h2 {
+        font-size: 28px;
+    }
+
+    .process-section h2 {
+        font-size: 28px;
+    }
+
+    .products-section h2 {
+        font-size: 28px;
+    }
+
+    /* Cards and content */
+    .service-content {
+        padding: 20px;
+    }
+
+    .service-content h3 {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .process-card {
+        padding: 25px 18px;
+        margin-bottom: 18px;
+    }
+
+    .process-icon {
+        font-size: 40px;
+        margin-bottom: 12px;
+    }
+
+    .reason-icon {
+        width: 55px;
+        height: 55px;
+        font-size: 26px;
+        margin-bottom: 15px;
+    }
+
+    .footer-brand img {
+        max-width: 100px;
+    }
+
+    .quote-form-container h3 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .quote-form-container .form-control {
+        padding: 10px 16px;
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+
+    .cta-section h2 {
+        font-size: 26px;
+        margin-bottom: 12px;
+    }
+
+    .cta-section .lead {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .cta-contact i {
+        font-size: 28px;
+        margin-bottom: 8px;
+    }
+}
+
+/* [CONCEPT 6.2: MEDIA QUERIES] - Extra small devices (480px and below) */
+@media (max-width: 480px) {
+    /* Hide hero image slider on mobile */
+    .hero-image-slider {
+        display: none;
+    }
+
+    /* Navbar */
+    .navbar-brand img {
+        width: 85px;
+    }
+
+    /* Hero */
+    .hero-content h1 {
+        font-size: 22px;
+        line-height: 1.3;
+        margin-bottom: 12px;
+    }
+
+    .hero-content h5 {
+        font-size: 10px;
+        margin-bottom: 8px;
+    }
+
+    .hero-content .lead {
+        font-size: 13px;
+        line-height: 1.5;
+        margin-bottom: 12px;
+    }
+
+    .hero-section {
+        padding: 30px 0;
+    }
+
+    .carousel-item img {
+        max-height: 250px;
+    }
+
+    .rating-section {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 11px;
+        padding: 8px 12px;
+        width: 100%;
+    }
+
+    .hero-stats {
+        flex-direction: column;
+        gap: 12px !important;
+    }
+
+    .hero-stats .stat-item h3 {
+        font-size: 24px;
+    }
+
+    .hero-buttons .btn {
+        padding: 10px 16px;
+        font-size: 12px;
+    }
+
+    /* Section padding - minimal */
+    .about-section,
+    .services-section,
+    .process-section,
+    .products-section,
+    .why-choose-us-section,
+    .faq-quote-section {
+        padding: 40px 0;
+    }
+
+    .container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    h2 {
+        font-size: 24px;
+        line-height: 1.3;
+    }
+
+    .about-content h2 {
+        font-size: 22px;
+        margin-bottom: 12px;
+    }
+
+    /* Video container */
+    .video-container iframe {
+        height: 200px;
+    }
+
+    /* Service/Product cards */
+    .service-card,
+    .product-card {
+        margin-bottom: 15px;
+    }
+
+    .service-image {
+        height: 180px;
+    }
+
+    .product-image {
+        height: 180px;
+    }
+
+    .service-content {
+        padding: 18px;
+    }
+
+    .service-content h3 {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
+    .product-content {
+        padding: 18px;
+    }
+
+    /* Process cards */
+    .process-card {
+        padding: 20px 15px;
+        margin-bottom: 15px;
+    }
+
+    .process-number {
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
+        margin-bottom: 12px;
+    }
+
+    .process-icon {
+        font-size: 35px;
+        margin-bottom: 10px;
+    }
+
+    .process-card h4 {
+        font-size: 15px;
+    }
+
+    /* Text sizing */
+    p {
+        font-size: 13px;
+    }
+
+    /* Buttons */
+    .btn {
+        padding: 10px 16px;
+        font-size: 12px;
+        border-radius: 6px;
+    }
+
+    /* Footer */
+    .footer-section h5 {
+        font-size: 14px;
+        margin-bottom: 14px;
+    }
+
+    .footer-brand img {
+        max-width: 90px;
+    }
+
+    .footer-section a,
+    .footer-section p {
+        font-size: 12px;
+    }
+
+    /* Forms */
+    .quote-form-container h3 {
+        font-size: 18px;
+        margin-bottom: 12px;
+    }
+
+    .quote-form-container .form-control {
+        padding: 9px 14px;
+        font-size: 12px;
+        margin-bottom: 9px;
+    }
+
+    /* Accordion */
+    .accordion-flush .accordion-button {
+        padding: 14px 0;
+        font-size: 13px;
+    }
+
+    .cta-section h2 {
+        font-size: 20px;
+    }
+}
+
+/* ===== PRODUCTS SECTION ===== */
+.products-section {
+    padding: 80px 0;
+    background-color: #f8f9fa;
+}
+
+.products-section h2 {
+    font-size: 48px;
+    line-height: 1.2;
+}
+
+.products-section .text-primary {
+    color: var(--primary-color);
+}
+
+.product-card {
+    transition: all 0.3s ease;
+    border: none;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: white;
+}
+
+.product-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.15);
+}
+
+.product-image {
+    height: 280px;
+    overflow: hidden;
+    background-color: #f0f0f0;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.08);
+}
+
+.product-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-content h4 {
+    font-size: 20px;
+    color: var(--text-dark);
+}
+
+.product-content a {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.product-content a:hover {
+    color: var(--secondary-color);
+}
+
+/* ===== WHY CHOOSE US SECTION ===== */
+.why-choose-us-section {
+    padding: 80px 0;
+    background-color: white;
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Why choose us section heading */
+.why-choose-us-section h2 {
+    font-size: 48px;
+    line-height: 1.2;
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Primary color text */
+.why-choose-us-section .text-primary {
+    color: var(--primary-color);
+}
+
+/* [CONCEPT 3.3: CLASS SELECTOR] - Item cards with animation */
+/* [CONCEPT 6.1: ANIMATIONS] - Applies animation to each item */
+.why-choose-item {
+    margin-bottom: 0;
+    /* [CONCEPT 6.1: ANIMATIONS] - Animation property applies named animation */
+    /* Syntax: animation: name duration timing-function; */
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* [CONCEPT 6.1: ANIMATIONS & KEYFRAMES] */
+/* @keyframes defines animation sequence (like video frames) */
+/* Syntax: @keyframes animationName { from {...} to {...} } */
+/* This fadeInUp animation makes elements fade in while sliding up */
+@keyframes fadeInUp {
+    /* [CONCEPT 6.1: KEYFRAMES] - 'from' = starting state (0% progress) */
+    from {
+        opacity: 0;                   /* Completely transparent initially */
+        transform: translateY(30px);  /* Start 30px lower than final position */
+    }
+    /* [CONCEPT 6.1: KEYFRAMES] - 'to' = ending state (100% progress) */
+    to {
+        opacity: 1;                   /* Full opacity (fully opaque) */
+        transform: translateY(0);     /* End at original position */
+    }
+}
+
+.reason-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #0055cc 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 32px;
+    color: white;
+}
+
+.reason-content h5 {
+    font-size: 18px;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+}
+
+.reason-content p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-light);
+}
+
+.why-choose-center-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.why-choose-center-image img {
+    max-width: 100%;
+    height: auto;
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.1));
+}
+
+/* ===== FAQ & QUOTE SECTION ===== */
+.faq-quote-section {
+    padding: 80px 0;
+    color: white;
+}
+
+.faq-quote-section .section-label span {
+    color: var(--secondary-color);
+}
+
+.faq-quote-section h2 {
+    font-size: 48px;
+    line-height: 1.2;
+    margin-bottom: 50px;
+}
+
+/* Accordion Styling */
+.accordion-flush .accordion-item {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 20px;
+}
+
+.accordion-flush .accordion-button {
+    padding: 20px 0;
+    background-color: transparent;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    box-shadow: none;
+    border: none;
+}
+
+.accordion-flush .accordion-button:not(.collapsed) {
+    background-color: transparent;
+    color: white;
+    box-shadow: none;
+}
+
+.accordion-flush .accordion-button:focus {
+    border-color: transparent;
+    box-shadow: none;
+    outline: none;
+}
+
+.accordion-flush .accordion-button::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+.accordion-body {
+    padding: 20px 0;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* Quote Form Styling */
+.quote-form-container h3 {
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+.quote-form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.quote-form-container .form-label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.quote-form-container .form-control {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Lato', sans-serif;
+    background-color: white;
+    color: var(--text-dark);
+    transition: all 0.3s ease;
+}
+
+.quote-form-container .form-control:focus {
+    box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.3);
+    outline: none;
+    border-color: var(--secondary-color);
+}
+
+.quote-form-container .form-control::placeholder {
+    color: #999;
+}
+
+.quote-form-container textarea.form-control {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.quote-form-container .btn-warning {
+    align-self: flex-start;
+    margin-top: 10px;
+}
+
+/* ===== CTA SECTION ===== */
+.cta-section {
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.cta-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+.cta-label {
+    font-size: 13px;
+    letter-spacing: 3px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.cta-section h2 {
+    font-size: 52px;
+    line-height: 1.2;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.cta-section .lead {
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.8;
+    opacity: 0.95;
+}
+
+.cta-contact {
+    padding: 20px 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    display: inline-flex !important;
+    align-items: center;
+    gap: 15px;
+}
+
+.cta-contact i {
+    font-size: 32px;
+    color: white;
+}
+
+.cta-contact a {
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.cta-contact a:hover {
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+/* ===== FOOTER ===== */
+.footer-section {
+    color: white;
+}
+
+.footer-section h5 {
+    font-size: 18px;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.footer-brand {
+    margin-bottom: 20px;
+}
+
+.footer-brand img {
+    max-width: 120px;
+    height: auto;
+}
+
+.footer-section a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 14px;
+}
+
+.footer-section a:hover {
+    color: var(--secondary-color);
+}
+
+.footer-section ul li {
+    margin-bottom: 12px;
+}
+
+.footer-section .social-icon {
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.footer-section .social-icon:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+}
+
+.footer-section .d-flex {
+    gap: 15px;
+}
+
+.footer-section hr {
+    margin: 40px 0;
+}
+
+.footer-section p {
+    font-size: 14px;
+    margin: 0;
+    opacity: 0.85;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+    .products-section h2 {
+        font-size: 40px;
+    }
+
+    .why-choose-us-section h2 {
+        font-size: 40px;
+    }
+
+    .faq-quote-section h2 {
+        font-size: 40px;
+    }
+
+    .cta-section h2 {
+        font-size: 42px;
+    }
+}
+
+@media (max-width: 768px) {
+    .products-section {
+        padding: 60px 0;
+    }
+
+    .products-section h2 {
+        font-size: 32px;
+    }
+
+    .why-choose-us-section {
+        padding: 60px 0;
+    }
+
+    .why-choose-us-section h2 {
+        font-size: 32px;
+    }
+
+    .why-choose-item {
+        margin-bottom: 30px;
+    }
+
+    .faq-quote-section {
+        padding: 60px 0;
+    }
+
+    .faq-quote-section h2 {
+        font-size: 32px;
+    }
+
+    .quote-form-container h3 {
+        font-size: 22px;
+    }
+
+    .cta-section {
+        min-height: 350px;
+    }
+
+    .cta-section h2 {
+        font-size: 36px;
+    }
+
+    .cta-section .lead {
+        font-size: 16px;
+    }
+
+    .cta-contact {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .footer-section h5 {
+        margin-bottom: 20px;
+    }
+
+    .footer-section {
+        text-align: center;
+    }
+
+    .footer-section ul {
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .products-section h2,
+    .why-choose-us-section h2,
+    .faq-quote-section h2 {
+        font-size: 26px;
+    }
+
+    .cta-section h2 {
+        font-size: 28px;
+    }
+
+    .reason-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 28px;
+    }
+
+    .process-number {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+    }
+}
