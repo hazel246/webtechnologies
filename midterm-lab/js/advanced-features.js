@@ -643,6 +643,216 @@ $(document).ready(function() {
     });
     
     // ═══════════════════════════════════════════════════════════════════════════════
+    // FEATURE 12: SLICK CAROUSEL - PRODUCTS SECTION
+    // ═══════════════════════════════════════════════════════════════════════════════
+    
+    /**
+     * Initialize Slick Carousel for products
+     * Features:
+     * - Infinite loop (no dead end)
+     * - Responsive: 3 cards on desktop, 2 on tablet, 1 on mobile
+     * - Auto-play every 5 seconds
+     * - Pause on hover
+     * - Smooth slide transitions
+     * - Prev/Next buttons
+     * - Slide counter
+     */
+    
+    // Check if Slick library is loaded
+    if (typeof $.fn.slick === 'undefined') {
+        console.error('%c[CAROUSEL ERROR] Slick library not loaded! Check CDN connection.', 'color: red; font-weight: bold;');
+    } else {
+        console.log('%c[CAROUSEL] Slick library loaded successfully', 'color: green; font-weight: bold;');
+        
+        try {
+            $('.products-carousel').slick({
+                // [CAROUSEL LOOP] - Infinite scrolling, wraps around
+                infinite: true,
+                
+                // [RESPONSIVE SHOWN] - Desktop: show 3 products
+                slidesToShow: 3,
+                
+                // [SCROLL SPEED] - Scroll 1 item per click
+                slidesToScroll: 1,
+                
+                // [AUTO-PLAY] - Start playing automatically
+                autoplay: true,
+                
+                // [AUTO-PLAY SPEED] - 5 seconds per slide (as specified)
+                autoplaySpeed: 5000,
+                
+                // [ANIMATION SPEED] - 500ms for smooth slide transition
+                speed: 500,
+                
+                // [CONTROLS] - Custom prev/next buttons
+                prevArrow: '#prevBtn',
+                nextArrow: '#nextBtn',
+                
+                // [PAUSE ON HOVER] - Pause auto-play when hovering
+                pauseOnHover: true,
+                
+                // [RESPONSIVE BREAKPOINTS] - Different columns at different screen sizes
+                responsive: [
+                    {
+                        // [LARGE DESKTOP] - 1200px and above
+                        breakpoint: 99999,
+                        settings: {
+                            slidesToShow: 3,  // Show 3 products on large desktop
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        // [TABLET & IPAD] - 1199px and below (includes iPad Pro)
+                        breakpoint: 1199,
+                        settings: {
+                            slidesToShow: 2,  // Show 2 products on iPad
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        // [MOBILE] - 768px and below
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 1,  // Show 1 product on mobile
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        // [SMALL MOBILE] - 480px and below
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+            
+            console.log('%c[CAROUSEL] Carousel initialized successfully!', 'color: #FFCC00; font-weight: bold;');
+            
+            // Force auto-play to start
+            setTimeout(function() {
+                try {
+                    $('.products-carousel').slick('slickPlay');
+                    console.log('%c[CAROUSEL] Auto-play started!', 'color: #00CC00; font-weight: bold;');
+                } catch (error) {
+                    console.error('[CAROUSEL] Error starting auto-play:', error);
+                }
+            }, 500);
+            
+        } catch (error) {
+            console.error('%c[CAROUSEL ERROR] Failed to initialize carousel:', 'color: red; font-weight: bold;', error);
+        }
+    }
+    
+    // ═══════════════════════════════════════════════════════════════════════════════
+    // SLIDE COUNTER UPDATE
+    // ═══════════════════════════════════════════════════════════════════════════════
+    
+    /**
+     * [AI-ENHANCED] Update slide counter when carousel moves
+     * Shows "Showing X of 10" format
+     * Updates in real-time as user navigates
+     */
+    
+    // Initialize counter on load
+    function updateSlideCounter() {
+        try {
+            var slickInstance = $('.products-carousel').slick('getSlick');
+            var totalSlides = slickInstance.slideCount;
+            var currentSlide = slickInstance.currentSlide + 1;
+            $('#slideCounter').text('Showing ' + currentSlide + ' of ' + totalSlides);
+            console.log('[CAROUSEL] Slide: ' + currentSlide + ' of ' + totalSlides);
+        } catch (error) {
+            console.log('[CAROUSEL] Counter not ready yet:', error.message);
+        }
+    }
+    
+    // Update counter initially (with delay to ensure carousel is ready)
+    setTimeout(function() {
+        updateSlideCounter();
+    }, 100);
+    
+    // Update counter on slide change
+    $('.products-carousel').on('afterChange', function(slick, currentSlide) {
+        updateSlideCounter();
+    });
+    
+    // ═══════════════════════════════════════════════════════════════════════════════
+    // HOVER PAUSE ENHANCEMENT
+    // ═══════════════════════════════════════════════════════════════════════════════
+    
+    /**
+     * [AI-ENHANCED] Advanced hover pause with visual feedback
+     * Pauses carousel when hovering over ANY product card (desktop)
+     * Pauses carousel when touching product card (mobile/tablet)
+     * Resumes when mouse/touch leaves
+     */
+    
+    // MOUSE HOVER - Desktop
+    $(document).on('mouseenter', '.slick-slide .product-card', function() {
+        try {
+            $('.products-carousel').slick('slickPause');
+            $(this).css({
+                'box-shadow': '0 20px 50px rgba(0, 51, 153, 0.25)',
+                'transform': 'scale(1.02)'
+            });
+            console.log('%c[CAROUSEL] ⏸️ Paused on hover', 'color: orange; font-weight: bold;');
+        } catch (error) {
+            console.log('[CAROUSEL] Could not pause carousel:', error.message);
+        }
+    });
+    
+    $(document).on('mouseleave', '.slick-slide .product-card', function() {
+        try {
+            $('.products-carousel').slick('slickPlay');
+            $(this).removeAttr('style');
+            console.log('%c[CAROUSEL] ▶️ Resumed after hover', 'color: green; font-weight: bold;');
+        } catch (error) {
+            console.log('[CAROUSEL] Could not resume carousel:', error.message);
+        }
+    });
+    
+    // TOUCH PAUSE - iPad/Mobile/Tablet
+    // When user taps a card, pause the carousel
+    $(document).on('touchstart', '.slick-slide .product-card', function() {
+        try {
+            $('.products-carousel').slick('slickPause');
+            $(this).css({
+                'box-shadow': '0 20px 50px rgba(0, 51, 153, 0.25)',
+                'transform': 'scale(1.02)'
+            });
+            console.log('%c[CAROUSEL] ⏸️ Paused on touch', 'color: orange; font-weight: bold;');
+        } catch (error) {
+            console.log('[CAROUSEL] Could not pause carousel on touch:', error.message);
+        }
+    });
+    
+    // When user lifts finger off the card, resume carousel immediately
+    $(document).on('touchend', '.slick-slide .product-card', function() {
+        var $card = $(this);
+        try {
+            // Resume auto-play immediately when touch ends
+            $('.products-carousel').slick('slickPlay');
+            $card.removeAttr('style');
+            console.log('%c[CAROUSEL] ▶️ Resumed after touch - auto-play active', 'color: green; font-weight: bold;');
+        } catch (error) {
+            console.log('[CAROUSEL] Could not resume carousel after touch:', error.message);
+        }
+    });
+    
+    // Log button clicks for debugging
+    $('#prevBtn').on('click', function() {
+        console.log('%c[CAROUSEL] ◀️ Previous clicked', 'color: blue; font-weight: bold;');
+    });
+    
+    $('#nextBtn').on('click', function() {
+        console.log('%c[CAROUSEL] ▶️ Next clicked', 'color: blue; font-weight: bold;');
+    });
+    
+    console.log('%c[CAROUSEL] Slick carousel feature initialized with 10 products', 'color: #FFCC00; font-weight: bold;');
+    
+    // ═══════════════════════════════════════════════════════════════════════════════
     // INITIALIZATION COMPLETE
     // ═══════════════════════════════════════════════════════════════════════════════
     

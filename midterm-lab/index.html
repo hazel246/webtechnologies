@@ -27,6 +27,10 @@
     <!-- Google Fonts - Custom fonts for modern look -->
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Lato:wght@400;700&display=swap" rel="stylesheet">
     
+    <!-- Slick Carousel CSS - For products carousel -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    
     <!-- Custom CSS file -->
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -419,7 +423,7 @@
         </div>
     </section>
 
-    <!-- Products Section -->
+    <!-- Products Section with Carousel -->
     <section class="products-section py-5 bg-light" id="products">
         <div class="container">
             <div class="text-center mb-5">
@@ -430,43 +434,141 @@
                     Our <span class="text-primary">Products</span>
                 </h2>
             </div>
-            <div class="row g-4">
+
+            <!-- Carousel Controls -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="carousel-controls">
+                    <button class="btn btn-outline-primary" id="prevBtn" aria-label="Previous product">
+                        <i class="fas fa-chevron-left"></i> Prev
+                    </button>
+                    <button class="btn btn-outline-primary" id="nextBtn" aria-label="Next product">
+                        Next <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="slide-counter text-muted fw-bold">
+                    <span id="slideCounter">Showing 1 of 10</span>
+                </div>
+            </div>
+
+            <!-- Carousel Container -->
+            <div class="products-carousel">
                 <!-- Solar Inverters -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="product-card shadow-sm rounded overflow-hidden">
-                        <div class="product-image rounded-top overflow-hidden" style="height: 280px;">
-                            <img src="images/1678104066_bogatyr-club-p-solnechnaya-stantsiya-foni-instagram-44.jpg" alt="Solar Inverters" class="img-fluid h-100 w-100" style="object-fit: cover;">
-                        </div>
-                        <div class="product-content p-4 bg-white">
-                            <h4 class="fw-bold text-dark mb-3">Solar Inverters</h4>
-                            <a href="#inverters" class="text-primary fw-bold text-decoration-none">Read More <i class="fas fa-plus ms-2"></i></a>
-                        </div>
+                <div class="product-card shadow-sm rounded overflow-hidden">
+                    <div class="product-image rounded-top overflow-hidden" style="height: 280px;">
+                        <img src="images/1678104066_bogatyr-club-p-solnechnaya-stantsiya-foni-instagram-44.jpg" alt="Solar Inverters" class="img-fluid h-100 w-100" style="object-fit: cover;">
+                    </div>
+                    <div class="product-content p-4 bg-white">
+                        <h4 class="fw-bold text-dark mb-3">Solar Inverters</h4>
+                        <p class="text-muted small mb-3">Convert DC power to AC efficiently</p>
+                        <a href="#inverters" class="text-primary fw-bold text-decoration-none">Read More <i class="fas fa-plus ms-2"></i></a>
                     </div>
                 </div>
 
                 <!-- Solar Panels -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="product-card shadow-sm rounded overflow-hidden">
-                        <div class="product-image rounded-top overflow-hidden" style="height: 280px;">
-                            <img src="images/2017_Toyota_Hsunpower-headquarters.jpg" alt="Solar Panels" class="img-fluid h-100 w-100" style="object-fit: cover;">
-                        </div>
-                        <div class="product-content p-4 bg-white">
-                            <h4 class="fw-bold text-dark mb-3">Solar Panels</h4>
-                            <a href="#panels" class="text-primary fw-bold text-decoration-none">Read More <i class="fas fa-plus ms-2"></i></a>
-                        </div>
+                <div class="product-card shadow-sm rounded overflow-hidden">
+                    <div class="product-image rounded-top overflow-hidden" style="height: 280px;">
+                        <img src="images/2017_Toyota_Hsunpower-headquarters.jpg" alt="Solar Panels" class="img-fluid h-100 w-100" style="object-fit: cover;">
+                    </div>
+                    <div class="product-content p-4 bg-white">
+                        <h4 class="fw-bold text-dark mb-3">Solar Panels</h4>
+                        <p class="text-muted small mb-3">High-efficiency photovoltaic modules</p>
+                        <a href="#panels" class="text-primary fw-bold text-decoration-none">Read More <i class="fas fa-plus ms-2"></i></a>
                     </div>
                 </div>
 
                 <!-- Solar Batteries -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="product-card shadow-sm rounded overflow-hidden">
-                        <div class="product-image rounded-top overflow-hidden" style="height: 280px;">
-                            <img src="images/primus_energypod2_and_solar_pv-copy.jpg" alt="Solar Batteries" class="img-fluid h-100 w-100" style="object-fit: cover;">
-                        </div>
-                        <div class="product-content p-4 bg-white">
-                            <h4 class="fw-bold text-dark mb-3">Solar Batteries</h4>
-                            <a href="#batteries" class="text-primary fw-bold text-decoration-none">Read More <i class="fas fa-plus ms-2"></i></a>
-                        </div>
+                <div class="product-card shadow-sm rounded overflow-hidden">
+                    <div class="product-image rounded-top overflow-hidden" style="height: 280px;">
+                        <img src="images/primus_energypod2_and_solar_pv-copy.jpg" alt="Solar Batteries" class="img-fluid h-100 w-100" style="object-fit: cover;">
+                    </div>
+                    <div class="product-content p-4 bg-white">
+                        <h4 class="fw-bold text-dark mb-3">Solar Batteries</h4>
+                        <p class="text-muted small mb-3">Reliable energy storage solutions</p>
+                        <a href="#batteries" class="text-primary fw-bold text-decoration-none">Read More <i class="fas fa-plus ms-2"></i></a>
+                    </div>
+                </div>
+
+                <!-- Solar Charge Controllers -->
+                <div class="product-card shadow-sm rounded overflow-hidden">
+                    <div class="product-image rounded-top overflow-hidden" style="height: 280px;">
+                        <img src="images/solar charge controllers.png" alt="Solar Charge Controllers" class="img-fluid h-100 w-100" style="object-fit: cover;">
+                    </div>
+                    <div class="product-content p-4 bg-white">
+                        <h4 class="fw-bold text-dark mb-3">Solar Charge Controllers</h4>
+                        <p class="text-muted small mb-3">Regulate power from panels to batteries</p>
+                        <a href="#controllers" class="text-primary fw-bold text-decoration-none">Read More <i class="fas fa-plus ms-2"></i></a>
+                    </div>
+                </div>
+
+                <!-- Solar Mounting Systems -->
+                <div class="product-card shadow-sm rounded overflow-hidden">
+                    <div class="product-image rounded-top overflow-hidden" style="height: 280px;">
+                        <img src="images/solar mounting systems.png" alt="Solar Mounting Systems" class="img-fluid h-100 w-100" style="object-fit: cover;">
+                    </div>
+                    <div class="product-content p-4 bg-white">
+                        <h4 class="fw-bold text-dark mb-3">Solar Mounting Systems</h4>
+                        <p class="text-muted small mb-3">Sturdy structural installation systems</p>
+                        <a href="#mounting" class="text-primary fw-bold text-decoration-none">Read More <i class="fas fa-plus ms-2"></i></a>
+                    </div>
+                </div>
+
+                <!-- Solar Water Pumps -->
+                <div class="product-card shadow-sm rounded overflow-hidden">
+                    <div class="product-image rounded-top overflow-hidden" style="height: 280px;">
+                        <img src="images/solar water pumps.png" alt="Solar Water Pumps" class="img-fluid h-100 w-100" style="object-fit: cover;">
+                    </div>
+                    <div class="product-content p-4 bg-white">
+                        <h4 class="fw-bold text-dark mb-3">Solar Water Pumps</h4>
+                        <p class="text-muted small mb-3">For agricultural and rural applications</p>
+                        <a href="#pumps" class="text-primary fw-bold text-decoration-none">Read More <i class="fas fa-plus ms-2"></i></a>
+                    </div>
+                </div>
+
+                <!-- Solar Street Lights -->
+                <div class="product-card shadow-sm rounded overflow-hidden">
+                    <div class="product-image rounded-top overflow-hidden" style="height: 280px;">
+                        <img src="images/solar street lights.png" alt="Solar Street Lights" class="img-fluid h-100 w-100" style="object-fit: cover;">
+                    </div>
+                    <div class="product-content p-4 bg-white">
+                        <h4 class="fw-bold text-dark mb-3">Solar Street Lights</h4>
+                        <p class="text-muted small mb-3">Outdoor LED lighting solutions</p>
+                        <a href="#streetlights" class="text-primary fw-bold text-decoration-none">Read More <i class="fas fa-plus ms-2"></i></a>
+                    </div>
+                </div>
+
+                <!-- Solar Roof Tiles -->
+                <div class="product-card shadow-sm rounded overflow-hidden">
+                    <div class="product-image rounded-top overflow-hidden" style="height: 280px;">
+                        <img src="images/solar roof tiles.png" alt="Solar Roof Tiles" class="img-fluid h-100 w-100" style="object-fit: cover;">
+                    </div>
+                    <div class="product-content p-4 bg-white">
+                        <h4 class="fw-bold text-dark mb-3">Solar Roof Tiles</h4>
+                        <p class="text-muted small mb-3">Integrated roofing solar solution</p>
+                        <a href="#rooftiles" class="text-primary fw-bold text-decoration-none">Read More <i class="fas fa-plus ms-2"></i></a>
+                    </div>
+                </div>
+
+                <!-- Solar Thermal Collectors -->
+                <div class="product-card shadow-sm rounded overflow-hidden">
+                    <div class="product-image rounded-top overflow-hidden" style="height: 280px;">
+                        <img src="images/solar thermal collectors.png" alt="Solar Thermal Collectors" class="img-fluid h-100 w-100" style="object-fit: cover;">
+                    </div>
+                    <div class="product-content p-4 bg-white">
+                        <h4 class="fw-bold text-dark mb-3">Solar Thermal Collectors</h4>
+                        <p class="text-muted small mb-3">Water heating systems for homes</p>
+                        <a href="#thermal" class="text-primary fw-bold text-decoration-none">Read More <i class="fas fa-plus ms-2"></i></a>
+                    </div>
+                </div>
+
+                <!-- Combiner Boxes -->
+                <div class="product-card shadow-sm rounded overflow-hidden">
+                    <div class="product-image rounded-top overflow-hidden" style="height: 280px;">
+                        <img src="images/combiner box.png" alt="Combiner Boxes" class="img-fluid h-100 w-100" style="object-fit: cover;">
+                    </div>
+                    <div class="product-content p-4 bg-white">
+                        <h4 class="fw-bold text-dark mb-3">Combiner Boxes</h4>
+                        <p class="text-muted small mb-3">Electrical safety and connection equipment</p>
+                        <a href="#combiner" class="text-primary fw-bold text-decoration-none">Read More <i class="fas fa-plus ms-2"></i></a>
                     </div>
                 </div>
             </div>
@@ -924,8 +1026,11 @@
     </footer>
 
     <!-- [CONCEPT 2.1: CSS SYNTAX & METHODS] - External JavaScript file (best practice) -->
-    <!-- jQuery Library (Required for jQuery functionality) -->
-    <script src="../jquery-4.0.0.js"></script>
+    <!-- jQuery Library (Required for jQuery and Slick Carousel) - Using CDN for reliability -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Slick Carousel JS - For products carousel (must be after jQuery) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

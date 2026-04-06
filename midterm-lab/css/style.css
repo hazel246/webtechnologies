@@ -262,14 +262,14 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ===== RESPONSIVE DESIGN - MEDIA QUERIES ===== */
 /* [CONCEPT 5.3: MEDIA QUERIES] - Responsive styles for tablet/mobile devices */
-/* [CONCEPT 5.2: RESPONSIVE BREAKPOINT] - max-width: 768px targets mobile/tablet devices */
-@media (max-width: 768px) {
-    /* [CONCEPT 5.1: DISPLAY PROPERTY] - Show hamburger menu on mobile */
+/* [CONCEPT 5.2: RESPONSIVE BREAKPOINT] - max-width: 1024px targets mobile/tablet/iPad devices */
+@media (max-width: 1024px) {
+    /* [CONCEPT 5.1: DISPLAY PROPERTY] - Show hamburger menu on mobile/tablet/iPad */
     .hamburger-menu {
         display: flex;
     }
     
-    /* [CONCEPT 5.1: DISPLAY PROPERTY] - Change nav menu to column layout on mobile */
+    /* [CONCEPT 5.1: DISPLAY PROPERTY] - Hide full navbar on mobile/tablet/iPad */
     .nav-menu-custom {
         position: absolute;
         top: 100%;
@@ -1827,5 +1827,159 @@ h1, h2, h3, h4, h5, h6 {
         width: 50px;
         height: 50px;
         font-size: 24px;
+    }
+}
+
+/* ===== SLICK CAROUSEL CUSTOMIZATION ===== */
+/* [CONCEPT 6.1: ANIMATIONS & TRANSITIONS] - Custom Slick carousel styling */
+
+/* Products carousel container */
+.products-carousel {
+    /* [CONCEPT 5.3: FLEXBOX] - Flex layout for products */
+    display: flex;
+    /* [CONCEPT 6.1: TRANSITIONS] - Smooth slide animation */
+    transition: all 0.5s ease;
+}
+
+/* Carousel control buttons styling */
+.carousel-controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    min-width: fit-content;
+}
+
+.carousel-controls .btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    min-width: auto;
+}
+
+.carousel-controls .btn-outline-primary {
+    color: var(--primary-color) !important;
+    border: 2px solid var(--primary-color);
+    background-color: transparent !important;
+}
+
+.carousel-controls .btn-outline-primary:hover,
+.carousel-controls .btn-outline-primary:focus,
+.carousel-controls .btn-outline-primary:active {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 51, 153, 0.3);
+}
+
+.carousel-controls .btn-outline-primary:focus {
+    outline: none;
+    box-shadow: 0 6px 20px rgba(0, 51, 153, 0.3);
+}
+
+/* Slide counter styling */
+.slide-counter {
+    font-size: 14px;
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+/* Slick slider specific styles */
+.slick-slider {
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+
+.slick-list {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.slick-track {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.slick-slide {
+    display: none;
+    float: left;
+    height: 100%;
+    min-height: 1px;
+    padding: 0 15px;  /* Spacing between cards */
+}
+
+.slick-slide.slick-active {
+    display: block;
+}
+
+/* Product card inside carousel */
+.slick-slide .product-card {
+    margin: 0;
+}
+
+/* Slick controls - hidden (using custom buttons) */
+.slick-prev,
+.slick-next {
+    display: none !important;
+}
+
+/* Carousel dots - hidden */
+.slick-dots {
+    display: none !important;
+}
+
+/* Touch swipe styling */
+.slick-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Hover pause effect for carousel */
+.products-carousel:hover {
+    /* Card stays visible on hover */
+}
+
+/* Responsive carousel adjustments */
+@media (max-width: 1024px) {
+    .carousel-controls {
+        gap: 6px;
+    }
+    
+    .carousel-controls .btn {
+        padding: 8px 14px;
+        font-size: 13px;
+        flex: 1;  /* Equal width buttons side by side */
+    }
+}
+
+@media (max-width: 768px) {
+    .slick-slide {
+        padding: 0 12px;  /* Reduce padding on mobile */
+    }
+    
+    .carousel-controls {
+        gap: 5px;
+    }
+    
+    .carousel-controls .btn {
+        padding: 8px 12px;
+        font-size: 12px;
+        flex: 1;  /* Equal width buttons side by side */
+    }
+    
+    .slide-counter {
+        font-size: 12px;
     }
 }
