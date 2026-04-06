@@ -21,6 +21,77 @@ $(document).ready(function() {
     
     console.log('%c[MIDTERM LAB] Advanced Features Loaded', 'color: #003399; font-weight: bold; font-size: 14px;');
     
+    // Check if form exists
+    if ($('#quoteForm').length === 0) {
+        console.log('%c[ERROR] Form #quoteForm not found!', 'color: red; font-weight: bold;');
+    } else {
+        console.log('%c[SUCCESS] Form #quoteForm found and ready for validation', 'color: green; font-weight: bold;');
+    }
+    
+    // ═══════════════════════════════════════════════════════════════════════════════
+    // REAL-TIME PHONE VALIDATION
+    // ═══════════════════════════════════════════════════════════════════════════════
+    
+    /**
+     * Real-time phone validation - checks as user types
+     */
+    function validatePhone() {
+        var phone = $('#quotePhone').val().trim();
+        var phoneRegex = /^(\+92|0092|0)[3-9]\d{9}$/;
+        var phoneClean = phone.replace(/\s/g, '');
+        
+        if (phone && !phoneRegex.test(phoneClean)) {
+            $('#quotePhone').addClass('is-invalid');
+            $('#phoneError').text('Invalid phone format. Use: 03001234567 or +923001234567').show();
+        } else if (phone) {
+            $('#quotePhone').removeClass('is-invalid');
+            $('#phoneError').hide();
+        }
+    }
+    
+    $('#quotePhone').on('blur input', validatePhone);
+    
+    // ═══════════════════════════════════════════════════════════════════════════════
+    // REAL-TIME EMAIL VALIDATION
+    // ═══════════════════════════════════════════════════════════════════════════════
+    
+    /**
+     * Real-time email validation - checks as user types
+     */
+    function validateEmail() {
+        var email = $('#quoteEmail').val().trim();
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        if (email && !emailRegex.test(email)) {
+            $('#quoteEmail').addClass('is-invalid');
+            $('#emailError').text('Please enter a valid email (e.g., name@example.com)').show();
+        } else if (email) {
+            $('#quoteEmail').removeClass('is-invalid');
+            $('#emailError').hide();
+        }
+    }
+    
+    $('#quoteEmail').on('blur input', validateEmail);
+    
+    // ═══════════════════════════════════════════════════════════════════════════════
+    // REAL-TIME NAME VALIDATION
+    // ═══════════════════════════════════════════════════════════════════════════════
+    
+    /**
+     * Real-time name validation - checks as user types
+     */
+    function validateName() {
+        var name = $('#quoteName').val().trim();
+        
+        if (name && name.length < 3) {
+            $('#quoteName').addClass('is-invalid');
+        } else if (name) {
+            $('#quoteName').removeClass('is-invalid');
+        }
+    }
+    
+    $('#quoteName').on('blur input', validateName);
+    
     // ═══════════════════════════════════════════════════════════════════════════════
     // FEATURE 1: AJAX FORM SUBMISSION
     // ═══════════════════════════════════════════════════════════════════════════════
@@ -37,7 +108,14 @@ $(document).ready(function() {
         // With it: JavaScript handles via AJAX (no page reload)
         e.preventDefault();
         
-        console.log('%c[AJAX] Quote form submitted', 'color: green; font-weight: bold;');
+        console.log('%c════════════════════════════════════════════', 'color: green; font-weight: bold;');
+        console.log('%c[FORM SUBMIT] Form submission started', 'color: green; font-weight: bold; font-size: 14px;');
+        console.log('%c════════════════════════════════════════════', 'color: green; font-weight: bold;');
+        
+        // Check if form exists
+        console.log('Form element:', $('#quoteForm').length ? '✓ Found' : '✗ NOT FOUND');
+        console.log('Success msg element:', $('#quoteSuccessMsg').length ? '✓ Found' : '✗ NOT FOUND');
+        console.log('Error msg element:', $('#quoteErrorMsg').length ? '✓ Found' : '✗ NOT FOUND');
         
         // [DEFENSE] Hide previous messages
         $('#quoteSuccessMsg').fadeOut(200);
@@ -96,7 +174,7 @@ $(document).ready(function() {
         $btn.html('<i class="fas fa-spinner fa-spin me-2"></i>Submitting...');
         
         // ─────────────────────────────────────────────────────────────────────────
-        // [DEFENSIVE] AJAX REQUEST
+        // [DEFENSIVE] AJAX REQUEST - REAL IMPLEMENTATION
         // ─────────────────────────────────────────────────────────────────────────
         
         // [VIVA_QUESTION] "What is $.ajax()?"
@@ -105,15 +183,11 @@ $(document).ready(function() {
         
         $.ajax({
             // [DEFENSE] URL: Where to send the request
-            // In real backend: url: '/api/contact' or 'https://backend.com/quotes'
-            // For demo: Uses local storage/simulation
-            url: '#',
+            // This is the backend endpoint that receives the form data
+            url: 'https://jsonplaceholder.typicode.com/posts',  // Dummy API for testing
             
             // [DEFENSE] TYPE: HTTP method
             // POST = Create/Submit new data (data in request body)
-            // GET = Retrieve data (data in URL)
-            // PUT = Update data
-            // DELETE = Remove data
             // [VIVA] "Why use POST for form submission?"
             // Answer: "POST sends data securely in request body.
             //         GET appends to URL (visible in browser history - less secure)"
@@ -134,24 +208,51 @@ $(document).ready(function() {
             //         Receives the response data as parameter."
             
             success: function(response) {
-                console.log('%c[SUCCESS] Quote submitted successfully', 'color: green; font-weight: bold;', response);
+                console.log('%c[SUCCESS] Quote submitted successfully via AJAX', 'color: green; font-weight: bold;', response);
+                
+                // STOP auto-save immediately to prevent re-saving old data
+                clearInterval(autoSaveInterval);
+                console.log('%c[AUTO-SAVE] Stopped auto-save interval', 'color: orange;');
+                
+                // Clear all error messages and field styling
+                $('#quoteErrorMsg').hide();
+                $('#phoneError').hide();
+                $('#emailError').hide();
+                $('#quoteName').removeClass('is-invalid');
+                $('#quotePhone').removeClass('is-invalid');
+                $('#quoteEmail').removeClass('is-invalid');
                 
                 // Show success message
-                $('#quoteSuccessMsg').fadeIn();
+                $('#quoteSuccessMsg').slideDown(300);
+                console.log('%c[MESSAGE] Success message displayed', 'color: green;');
                 
-                // Clear form
+                // SCROLL to success message so user can see it
+                var msgPosition = $('#quoteSuccessMsg').offset().top - 150;
+                $('html, body').animate({
+                    scrollTop: msgPosition
+                }, 500, function() {
+                    console.log('%c[SCROLL] Scrolled to success message', 'color: green;');
+                });
+                
+                // Clear form completely
                 $('#quoteForm')[0].reset();
+                $('#quoteName').val('');
+                $('#quotePhone').val('');
+                $('#quoteEmail').val('');
+                $('#quoteMessage').val('');
+                console.log('%c[FORM] Form cleared', 'color: blue;');
+                
+                // CRITICAL: Clear localStorage draft IMMEDIATELY
+                localStorage.removeItem('quoteFormDraft');
+                localStorage.removeItem('quotes');
+                console.log('%c[AUTO-SAVE] All form data cleared from localStorage', 'color: green;');
                 
                 // Re-enable button
                 $btn.prop('disabled', false);
                 $btn.html(originalText);
+                console.log('%c[BUTTON] Submit button re-enabled', 'color: blue;');
                 
-                // Auto-hide message after 4 seconds
-                setTimeout(function() {
-                    $('#quoteSuccessMsg').fadeOut();
-                }, 4000);
-                
-                // [DEFENSIVE] Store in localStorage for demo (persistence)
+                // Store in localStorage for demo (persistence)
                 storeQuoteLocally({
                     fullname: fullname,
                     phone: phone,
@@ -159,6 +260,29 @@ $(document).ready(function() {
                     message: $('#quoteMessage').val(),
                     timestamp: new Date().toLocaleString()
                 });
+                
+                // Restart auto-save after 2 seconds
+                setTimeout(function() {
+                    autoSaveInterval = setInterval(function() {
+                        var formData = {
+                            fullname: $('#quoteName').val(),
+                            phone: $('#quotePhone').val(),
+                            email: $('#quoteEmail').val(),
+                            message: $('#quoteMessage').val()
+                        };
+                        
+                        if (formData.fullname || formData.email) {
+                            localStorage.setItem('quoteFormDraft', JSON.stringify(formData));
+                        }
+                    }, 5000);
+                    console.log('%c[AUTO-SAVE] Auto-save interval restarted', 'color: green;');
+                }, 2000);
+                
+                // Auto-hide message after 4 seconds
+                setTimeout(function() {
+                    $('#quoteSuccessMsg').slideUp(300);
+                    console.log('%c[MESSAGE] Success message hidden', 'color: blue;');
+                }, 4000);
             },
             
             // ─────────────────────────────────────────────────────────────────────────
@@ -172,7 +296,9 @@ $(document).ready(function() {
             error: function(xhr, status, error) {
                 console.log('%c[ERROR] Quote submission failed', 'color: red; font-weight: bold;');
                 console.log('Status:', xhr.status);
+                console.log('Status Text:', xhr.statusText);
                 console.log('Error:', error);
+                console.log('Response:', xhr.responseText);
                 
                 // Show error message
                 var errorMsg = 'An error occurred. Please try again.';
@@ -183,10 +309,21 @@ $(document).ready(function() {
                     errorMsg = 'Server endpoint not found.';
                 } else if (xhr.status >= 500) {
                     errorMsg = 'Server error. Please try again later.';
+                } else if (xhr.status >= 400) {
+                    errorMsg = 'Request failed (Error ' + xhr.status + ').';
                 }
                 
                 $('#errorText').text(errorMsg);
-                $('#quoteErrorMsg').fadeIn();
+                $('#quoteErrorMsg').slideDown(300);
+                console.log('%c[MESSAGE] Error message displayed', 'color: red;');
+                
+                // SCROLL to error message so user can see it
+                var msgPosition = $('#quoteErrorMsg').offset().top - 150;
+                $('html, body').animate({
+                    scrollTop: msgPosition
+                }, 500, function() {
+                    console.log('%c[SCROLL] Scrolled to error message', 'color: red;');
+                });
                 
                 // Re-enable button
                 $btn.prop('disabled', false);
@@ -194,7 +331,7 @@ $(document).ready(function() {
                 
                 // Auto-hide error after 5 seconds
                 setTimeout(function() {
-                    $('#quoteErrorMsg').fadeOut();
+                    $('#quoteErrorMsg').slideUp(300);
                 }, 5000);
             }
         });
@@ -433,20 +570,10 @@ $(document).ready(function() {
         }
     }, 5000); // Every 5 seconds
     
-    // [DEFENSIVE] Load draft on page load
-    var savedDraft = localStorage.getItem('quoteFormDraft');
-    if (savedDraft) {
-        try {
-            var draft = JSON.parse(savedDraft);
-            $('#quoteName').val(draft.fullname);
-            $('#quotePhone').val(draft.phone);
-            $('#quoteEmail').val(draft.email);
-            $('#quoteMessage').val(draft.message);
-            console.log('[AUTO-SAVE] Form draft loaded from localStorage');
-        } catch(e) {
-            console.log('[AUTO-SAVE] Error loading draft:', e);
-        }
-    }
+    // [DEFENSIVE] Clear any old draft data on page load for fresh start
+    // User will start with empty form every time they open the page
+    localStorage.removeItem('quoteFormDraft');
+    console.log('%c[AUTO-SAVE] Old draft cleared on page load - form starts fresh', 'color: orange;');
     
     /**
      * [DEFENSIVE] Clear auto-save after successful submission

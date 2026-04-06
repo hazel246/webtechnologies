@@ -743,7 +743,13 @@
                     <div class="quote-form-container">
                         <h3 class="text-white fw-bold mb-4">Request A Quote</h3>
                         <!-- [CONCEPT 1.3: HTML ELEMENTS] - <form> semantic element for collecting user input -->
-                        <form>
+                        <div id="quoteSuccessMsg" class="alert alert-success" style="display:none;">
+                            <i class="fas fa-check-circle me-2"></i>Quote submitted successfully! We'll contact you soon.
+                        </div>
+                        <div id="quoteErrorMsg" class="alert alert-danger" style="display:none;">
+                            <i class="fas fa-exclamation-circle me-2"></i><span id="errorText">Error</span>
+                        </div>
+                        <form id="quoteForm">
                             <!-- [CONCEPT 1.3: HTML ELEMENTS & ATTRIBUTES] - Label for accessibility linked to input via 'for' attribute -->
                             <!-- Name Field -->
                             <div class="mb-4">
@@ -763,6 +769,7 @@
                                 <!-- [CONCEPT 1.3: ATTRIBUTES] - type="tel" for telephone numbers -->
                                 <!-- Email-specific keyboard on mobile devices -->
                                 <input type="tel" class="form-control form-control-lg" id="quotePhone" placeholder="Phone Number" required>
+                                <small id="phoneError" class="text-danger d-block mt-2" style="display:none;"></small>
                             </div>
 
                             <!-- [CONCEPT 1.3: HTML ELEMENTS & ATTRIBUTES] - Email input field -->
@@ -771,6 +778,7 @@
                                 <label for="quoteEmail" class="form-label text-white">Email <span class="text-warning">*</span></label>
                                 <!-- [CONCEPT 1.3: ATTRIBUTES] - type="email" for email validation and mobile keyboard -->
                                 <input type="email" class="form-control form-control-lg" id="quoteEmail" placeholder="Email" required>
+                                <small id="emailError" class="text-danger d-block mt-2" style="display:none;"></small>
                             </div>
 
                             <!-- [CONCEPT 1.3: HTML ELEMENTS & ATTRIBUTES] - Textarea for longer text input -->
@@ -785,7 +793,7 @@
                             <!-- [CONCEPT 1.3: HTML ELEMENTS & ATTRIBUTES] - Submit button -->
                             <!-- Submit Button -->
                             <!-- [CONCEPT 1.3: ATTRIBUTES] - type="submit" sends form data when clicked -->
-                            <button type="submit" class="btn btn-warning btn-lg fw-bold px-5">Submit Form</button>
+                            <button type="submit" class="btn btn-warning btn-lg fw-bold px-5" id="quoteSubmitBtn">Submit Form</button>
                         </form>
                     </div>
                 </div>
@@ -795,7 +803,7 @@
 
     <!-- [CONCEPT 1.1: SEMANTIC HTML] - CTA (Call To Action) section -->
     <!-- CTA Section -->
-    <section class="cta-section py-5" style="background: linear-gradient(rgba(25, 60, 130, 0.8), rgba(25, 60, 130, 0.8)), url('images/solar-farm-bg.jpg'); background-size: cover; background-position: center; color: white;min-height: 400px; display: flex; align-items: center;">
+    <section class="cta-section py-5" style="background: linear-gradient(rgba(25, 60, 130, 0.8), rgba(25, 60, 130, 0.8)), url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 400%22><rect fill=%22%23193c82%22 width=%221200%22 height=%22400%22/></svg>'); background-size: cover; background-position: center; color: white;min-height: 400px; display: flex; align-items: center;">
         <div class="container text-center">
             <div class="cta-label mb-4">
                 <span class="text-uppercase" style="letter-spacing: 2px; font-size: 14px;">Make an Appointment</span>
@@ -917,9 +925,7 @@
 
     <!-- [CONCEPT 2.1: CSS SYNTAX & METHODS] - External JavaScript file (best practice) -->
     <!-- jQuery Library (Required for jQuery functionality) -->
-    <script src="jquery-4.0.0.js"></script>
-
-    <script src="/jqpractice.js"></script>
+    <script src="../jquery-4.0.0.js"></script>
     
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
