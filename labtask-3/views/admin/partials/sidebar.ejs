@@ -1,0 +1,45 @@
+<aside class="admin-sidebar">
+  <div class="sidebar-brand">
+    <i class="fa-solid fa-solar-panel"></i>
+    <span>MFES Admin</span>
+  </div>
+
+  <nav class="sidebar-nav">
+    <p class="nav-section-label">Management</p>
+
+    <a href="/admin/dashboard" class="nav-link <%= page === 'dashboard' ? 'active' : '' %>">
+      <i class="fa-solid fa-gauge-high"></i>
+      <span>Dashboard</span>
+    </a>
+
+    <a href="/admin/products/add" class="nav-link <%= page === 'add' ? 'active' : '' %>">
+      <i class="fa-solid fa-circle-plus"></i>
+      <span>Add Product</span>
+    </a>
+
+    <p class="nav-section-label mt-3">Account</p>
+
+    <a href="/products" class="nav-link" target="_blank">
+      <i class="fa-solid fa-store"></i>
+      <span>Storefront</span>
+      <i class="fa-solid fa-arrow-up-right-from-square ms-auto small"></i>
+    </a>
+
+    <form method="POST" action="/auth/logout" class="mt-1">
+      <button type="submit" class="nav-link w-100 border-0 bg-transparent text-start">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span>Logout</span>
+      </button>
+    </form>
+  </nav>
+
+  <% if (currentUser) { %>
+    <div class="sidebar-user">
+      <i class="fa-solid fa-circle-user me-2"></i>
+      <div>
+        <p class="mb-0 small fw-semibold text-light"><%= currentUser.name %></p>
+        <p class="mb-0" style="font-size:0.7rem;color:#f59e0b;">Administrator</p>
+      </div>
+    </div>
+  <% } %>
+</aside>

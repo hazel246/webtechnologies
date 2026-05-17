@@ -1,0 +1,32 @@
+<aside class="admin-sidebar">
+  <div class="sidebar-brand">
+    <i class="fa-solid fa-solar-panel"></i>
+    <span>MFES Admin</span>
+  </div>
+
+  <nav class="sidebar-nav">
+    <p class="nav-section-label">Main</p>
+
+    <a href="/admin/dashboard" class="nav-link <%= page === 'dashboard' ? 'active' : '' %>">
+      <i class="fa-solid fa-gauge-high"></i>
+      <span>Dashboard</span>
+    </a>
+
+    <a href="/admin/products/add" class="nav-link <%= page === 'add' ? 'active' : '' %>">
+      <i class="fa-solid fa-circle-plus"></i>
+      <span>Add Product</span>
+    </a>
+
+    <p class="nav-section-label mt-3">Site</p>
+
+    <a href="/products" target="_blank" class="nav-link">
+      <i class="fa-solid fa-store"></i>
+      <span>View Storefront</span>
+      <i class="fa-solid fa-arrow-up-right-from-square ms-auto small"></i>
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <i class="fa-solid fa-circle-info me-2"></i>Assignment 4
+  </div>
+</aside>

@@ -1,0 +1,143 @@
+/* ============================
+   Auth Pages CSS - Lab Task 3
+   ============================ */
+
+:root {
+  --primary: #f59e0b;
+  --dark-bg: #1a1a2e;
+  --radius: 12px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: "Lexend", sans-serif;
+  margin: 0;
+}
+
+/* ── Auth layout ── */
+.auth-body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  padding: 24px 16px;
+}
+
+.auth-card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 36px 32px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.auth-brand {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.auth-brand h2 {
+  color: #1e293b;
+  font-size: 1.5rem;
+}
+
+/* Inputs */
+.form-control, .form-select {
+  border-radius: 8px;
+  font-family: "Lexend", sans-serif;
+  font-size: 0.9rem;
+  border-color: #e2e8f0;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+}
+
+.input-group-text {
+  border-color: #e2e8f0;
+  background: #f8fafc;
+}
+
+/* Submit button */
+.btn-auth {
+  background: var(--primary);
+  color: #1a1a2e;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 11px;
+  font-size: 0.95rem;
+  font-family: "Lexend", sans-serif;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-auth:hover {
+  background: #d97706;
+  color: white;
+  transform: translateY(-1px);
+}
+
+/* Demo credentials box */
+.demo-hint {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+
+/* Flash alerts inside auth pages */
+.flash-alert {
+  font-size: 0.9rem;
+}
+
+/* ── Navbar dark theme ── */
+.navbar {
+  background: var(--dark-bg);
+  padding: 14px 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.navbar-brand {
+  font-size: 1.3rem;
+  letter-spacing: 0.5px;
+}
+
+/* ── Sidebar user info ── */
+.sidebar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-top: 1px solid #1e293b;
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+/* ── Checkout button on product cards ── */
+.btn-checkout {
+  background: transparent;
+  border: 1px solid #f59e0b;
+  color: #f59e0b;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 6px 12px;
+  transition: background 0.2s, color 0.2s;
+  font-family: "Lexend", sans-serif;
+}
+
+.btn-checkout:hover {
+  background: #f59e0b;
+  color: #1a1a2e;
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 28px 20px;
+  }
+}

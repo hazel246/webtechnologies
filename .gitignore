@@ -28,3 +28,15 @@ videos/Unconfirmed*.crdownload
 assignment-1/videos/Unconfirmed*.crdownload
 assignment-2/videos/Unconfirmed*.crdownload
 labtask-1/videos/Unconfirmed*.crdownload
+
+# Node.js
+node_modules/
+**/node_modules/
+
+# Environment variables (contains secrets - never commit these)
+.env
+**/.env
+
+# Upload folders (user uploaded files)
+**/public/uploads/*
+!**/public/uploads/.gitkeep

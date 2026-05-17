@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Catalog – MFES Solar Energy</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/products.css" />
+  <style>
+    .btn-logout { background: none; border: none; cursor: pointer; color: inherit; font-family: inherit; font-size: inherit; }
+    .nav-register-btn { background: #FDB913; color: #003399 !important; padding: 6px 16px; border-radius: 4px; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+<%- include('partials/navbar') %>
+
+  <!-- ===== PAGE HEADER ===== -->
+  <section class="page-header">
+    <div class="container text-center">
+      <h1 class="display-5 fw-bold">Solar Product Catalog</h1>
+      <p class="lead">Browse our full range of solar panels, inverters, batteries &amp; more</p>
+      <% if (totalProducts > 0) { %>
+        <span class="badge bg-warning text-dark fs-6">
+          <%= totalProducts %> product<%= totalProducts !== 1 ? "s" : "" %> found
+        </span>
+      <% } %>
+    </div>
+  </section>
+
+  <div class="container my-4">
+    <div class="row g-4">
+
+      <!-- ===== SIDEBAR FILTERS ===== -->
+      <aside class="col-lg-3">
+        <div class="filter-card">
+          <h5 class="filter-title">
+            <i class="fa-solid fa-sliders me-2"></i>Filters
+          </h5>
+
+          <form method="GET" action="/products" id="filterForm">
+
+            <!-- Search -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Search by Name</label>
+              <div class="input-group">
+                <span class="input-group-text bg-white">
+                  <i class="fa-solid fa-magnifying-glass text-muted"></i>
+                </span>
+                <input
+                  type="text"
+                  name="search"
+                  class="form-control"
+                  placeholder="e.g. Jinko Panel..."
+                  value="<%= filters.search %>"
+                />
+              </div>
+            </div>
+
+            <!-- Category -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Category</label>
+              <select name="category" class="form-select">
+                <option value="">All Categories</option>
+                <% categories.forEach(function(cat) { %>
+                  <option value="<%= cat %>" <%= filters.category === cat ? "selected" : "" %>>
+                    <%= cat %>
+                  </option>
+                <% }); %>
+              </select>
+            </div>
+
+            <!-- Price Range -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Price Range (PKR)</label>
+              <div class="row g-2">
+                <div class="col-6">
+                  <input
+                    type="number"
+                    name="minPrice"
+                    class="form-control"
+                    placeholder="Min"
+                    min="0"
+                    value="<%= filters.minPrice %>"
+                  />
+                </div>
+                <div class="col-6">
+                  <input
+                    type="number"
+                    name="maxPrice"
+                    class="form-control"
+                    placeholder="Max"
+                    min="0"
+                    value="<%= filters.maxPrice %>"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <input type="hidden" name="page" value="1" />
+
+            <button type="submit" class="btn btn-apply w-100 mb-2">
+              <i class="fa-solid fa-filter me-1"></i>Apply Filters
+            </button>
+            <a href="/products" class="btn btn-outline-secondary w-100">
+              <i class="fa-solid fa-rotate-left me-1"></i>Reset
+            </a>
+          </form>
+        </div>
+      </aside>
+
+      <!-- ===== PRODUCT GRID ===== -->
+      <main class="col-lg-9">
+
+        <% if (products.length === 0) { %>
+          <div class="empty-state text-center py-5">
+            <i class="fa-solid fa-box-open fa-4x text-muted mb-3"></i>
+            <h4 class="text-muted">No products match your filters</h4>
+            <p class="text-muted">Try adjusting the search term, category, or price range.</p>
+            <a href="/products" class="btn btn-outline-warning mt-2">Clear All Filters</a>
+          </div>
+
+        <% } else { %>
+
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3 g-4">
+            <% products.forEach(function(product) { %>
+              <div class="col">
+                <div class="product-card h-100">
+
+                  <!-- Product image -->
+                  <div class="product-img-wrap">
+                    <span class="category-badge">
+                      <%= product.category %>
+                    </span>
+                    <% if (product.image) { %>
+                      <img src="<%= product.image %>" alt="<%= product.name %>" class="product-img" />
+                    <% } else { %>
+                      <div class="product-icon">
+                        <% if (product.category === "Solar Panels") { %>
+                          <i class="fa-solid fa-solar-panel"></i>
+                        <% } else if (product.category === "Inverters") { %>
+                          <i class="fa-solid fa-bolt"></i>
+                        <% } else if (product.category === "Batteries") { %>
+                          <i class="fa-solid fa-car-battery"></i>
+                        <% } else if (product.category === "Mounting Systems") { %>
+                          <i class="fa-solid fa-screwdriver-wrench"></i>
+                        <% } else { %>
+                          <i class="fa-solid fa-plug"></i>
+                        <% } %>
+                      </div>
+                    <% } %>
+                  </div>
+
+                  <div class="product-body">
+                    <h6 class="product-name"><%= product.name %></h6>
+
+                    <% if (product.description) { %>
+                      <p class="product-desc text-muted small"><%= product.description %></p>
+                    <% } %>
+
+                    <!-- Star rating -->
+                    <div class="star-rating mb-2">
+                      <% for (let i = 1; i <= 5; i++) { %>
+                        <i class="fa-star <%= i <= product.rating ? "fa-solid text-warning" : "fa-regular text-muted" %>"></i>
+                      <% } %>
+                      <span class="ms-1 text-muted small">(<%= product.rating %>/5)</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                      <span class="product-price">
+                        PKR <%= product.price.toLocaleString() %>
+                      </span>
+                      <span class="stock-badge <%= product.stock > 10 ? "in-stock" : product.stock > 0 ? "low-stock" : "out-stock" %>">
+                        <% if (product.stock > 10) { %>
+                          <i class="fa-solid fa-circle-check me-1"></i>In Stock
+                        <% } else if (product.stock > 0) { %>
+                          <i class="fa-solid fa-triangle-exclamation me-1"></i>Only <%= product.stock %> left
+                        <% } else { %>
+                          <i class="fa-solid fa-circle-xmark me-1"></i>Out of Stock
+                        <% } %>
+                      </span>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            <% }); %>
+          </div>
+
+          <!-- ===== PAGINATION ===== -->
+          <% if (totalPages > 1) { %>
+            <nav class="mt-5" aria-label="Product pagination">
+              <ul class="pagination justify-content-center flex-wrap gap-1">
+
+                <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+                  <a class="page-link"
+                     href="?page=<%= currentPage - 1 %>&search=<%= filters.search %>&category=<%= filters.category %>&minPrice=<%= filters.minPrice %>&maxPrice=<%= filters.maxPrice %>">
+                    <i class="fa-solid fa-chevron-left me-1"></i>Previous
+                  </a>
+                </li>
+
+                <% for (let p = 1; p <= totalPages; p++) { %>
+                  <li class="page-item <%= p === currentPage ? 'active' : '' %>">
+                    <a class="page-link"
+                       href="?page=<%= p %>&search=<%= filters.search %>&category=<%= filters.category %>&minPrice=<%= filters.minPrice %>&maxPrice=<%= filters.maxPrice %>">
+                      <%= p %>
+                    </a>
+                  </li>
+                <% } %>
+
+                <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+                  <a class="page-link"
+                     href="?page=<%= currentPage + 1 %>&search=<%= filters.search %>&category=<%= filters.category %>&minPrice=<%= filters.minPrice %>&maxPrice=<%= filters.maxPrice %>">
+                    Next<i class="fa-solid fa-chevron-right ms-1"></i>
+                  </a>
+                </li>
+
+              </ul>
+
+              <p class="text-center text-muted small mt-2">
+                Page <%= currentPage %> of <%= totalPages %>
+                &nbsp;·&nbsp;
+                Showing <%= (currentPage - 1) * 8 + 1 %>–<%= Math.min(currentPage * 8, totalProducts) %> of <%= totalProducts %> products
+              </p>
+            </nav>
+          <% } %>
+
+        <% } %>
+      </main>
+    </div>
+  </div>
+
+<%- include('partials/footer') %>
+</body>
+</html>

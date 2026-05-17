@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register – MFES Solar</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/auth.css" />
+</head>
+<body class="auth-body">
+
+  <div class="auth-card">
+
+    <div class="auth-brand">
+      <i class="fa-solid fa-solar-panel fa-2x text-warning mb-2"></i>
+      <h2 class="fw-bold mb-0">MFES Solar</h2>
+      <p class="text-muted small mb-0">Create your account</p>
+    </div>
+
+    <%- include('../partials/flash') %>
+
+    <% if (errors && errors.length > 0) { %>
+      <div class="alert alert-danger">
+        <% errors.forEach(e => { %><div><i class="fa-solid fa-circle-xmark me-2"></i><%= e %></div><% }); %>
+      </div>
+    <% } %>
+
+    <form method="POST" action="/auth/register" novalidate>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Full Name</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fa-solid fa-user text-muted"></i></span>
+          <input type="text" name="name" class="form-control"
+            placeholder="Your name" value="<%= old.name || '' %>" required />
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Email Address</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fa-solid fa-envelope text-muted"></i></span>
+          <input type="email" name="email" class="form-control"
+            placeholder="you@example.com" value="<%= old.email || '' %>"
+            autocomplete="email" required />
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Password <span class="text-muted small">(min. 6 characters)</span></label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fa-solid fa-lock text-muted"></i></span>
+          <input type="password" name="password" id="passwordField" class="form-control"
+            placeholder="••••••••" minlength="6" required />
+          <button type="button" class="input-group-text bg-white" id="togglePwd" tabindex="-1">
+            <i class="fa-solid fa-eye text-muted" id="eyeIcon"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label fw-semibold">Confirm Password</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fa-solid fa-lock text-muted"></i></span>
+          <input type="password" name="confirmPassword" class="form-control"
+            placeholder="••••••••" required />
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-auth w-100 mb-3">
+        <i class="fa-solid fa-user-plus me-2"></i>Create Account
+      </button>
+
+    </form>
+
+    <p class="text-center text-muted small">
+      Already have an account?
+      <a href="/auth/login" class="fw-semibold text-warning">Sign in</a>
+    </p>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById("togglePwd").addEventListener("click", function () {
+      const field = document.getElementById("passwordField");
+      const icon = document.getElementById("eyeIcon");
+      if (field.type === "password") {
+        field.type = "text";
+        icon.className = "fa-solid fa-eye-slash text-muted";
+      } else {
+        field.type = "password";
+        icon.className = "fa-solid fa-eye text-muted";
+      }
+    });
+  </script>
+</body>
+</html>
