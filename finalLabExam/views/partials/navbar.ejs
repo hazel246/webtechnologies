@@ -1,0 +1,110 @@
+<div class="top-bar-wrapper">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-8 col-12">
+        <div class="d-flex flex-wrap gap-3">
+          <a href="tel:+923001599957" class="text-white text-decoration-none">
+            <i class="fas fa-phone me-2"></i>+92 300 1599957
+          </a>
+          <a href="mailto:info@mfes.com.pk" class="text-white text-decoration-none">
+            <i class="fas fa-envelope me-2"></i>info@mfes.com.pk
+          </a>
+        </div>
+      </div>
+      <div class="col-md-4 col-12 text-md-end text-start mt-2 mt-md-0">
+        <div class="social-icons">
+          <a href="https://www.facebook.com/MultifunctionalEngineeringSolutions" target="_blank" class="text-white me-3"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.instagram.com/mfes_solar_energy/" target="_blank" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/company/mfes-solar-energy/" target="_blank" class="text-white me-3"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.youtube.com/@mfessolarenergy1732" target="_blank" class="text-white"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header class="main-header">
+  <div class="container">
+    <nav class="navbar-custom">
+      <a class="navbar-brand-custom" href="/">
+        <img src="/images/mfesl.png" alt="MFES Solar Energy" class="logo-img">
+      </a>
+      <button class="hamburger-menu" id="hamburgerBtn" aria-label="Toggle navigation menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+      <div class="nav-menu-custom" id="navMenu">
+        <ul class="nav-list">
+          <li class="nav-item-custom"><a class="nav-link-custom" href="/">Home</a></li>
+          <li class="nav-item-custom has-dropdown">
+            <a class="nav-link-custom dropdown-toggle" href="#about">Company Profile <span class="dropdown-arrow">▼</span></a>
+            <ul class="dropdown-list">
+              <li><a href="/#about" class="dropdown-link">About Us</a></li>
+            </ul>
+          </li>
+          <li class="nav-item-custom has-dropdown">
+            <a class="nav-link-custom dropdown-toggle" href="/products">Our Products <span class="dropdown-arrow">▼</span></a>
+            <ul class="dropdown-list">
+              <li><a href="/products?category=Solar+Panels" class="dropdown-link">Solar Panels</a></li>
+              <li><a href="/products?category=Inverters" class="dropdown-link">Inverters</a></li>
+              <li><a href="/products?category=Batteries" class="dropdown-link">Batteries</a></li>
+              <li><a href="/products?category=Accessories" class="dropdown-link">Accessories</a></li>
+              <li><a href="/products?category=Mounting+Systems" class="dropdown-link">Mounting Systems</a></li>
+            </ul>
+          </li>
+          <li class="nav-item-custom">
+            <a class="nav-link-custom" href="/onsale-products" style="color:#f59e0b; font-weight:700;">
+              <i class="fas fa-tag me-1"></i>On Sale
+            </a>
+          </li>
+          <li class="nav-item-custom"><a class="nav-link-custom" href="/#commercial">Our Solutions</a></li>
+          <li class="nav-item-custom"><a class="nav-link-custom" href="/#contact">Contact Us</a></li>
+
+          <% if (currentUser) { %>
+            <% if (currentUser.role === 'admin') { %>
+              <li class="nav-item-custom">
+                <a class="nav-link-custom" href="/admin" style="color: #FDB913; font-weight: 700;">
+                  <i class="fas fa-cog me-1"></i>Admin Panel
+                </a>
+              </li>
+            <% } %>
+            <li class="nav-item-custom">
+              <a class="nav-link-custom" href="/checkout"><i class="fas fa-shopping-cart me-1"></i>Checkout</a>
+            </li>
+            <li class="nav-item-custom">
+              <span class="nav-link-custom text-warning"><i class="fas fa-user me-1"></i><%= currentUser.name %></span>
+            </li>
+            <li class="nav-item-custom">
+              <form action="/auth/logout" method="POST" style="display:inline;">
+                <button type="submit" class="nav-link-custom btn-logout">Logout</button>
+              </form>
+            </li>
+          <% } else { %>
+            <li class="nav-item-custom">
+              <a class="nav-link-custom" href="/auth/login"><i class="fas fa-sign-in-alt me-1"></i>Login</a>
+            </li>
+            <li class="nav-item-custom">
+              <a class="nav-link-custom nav-register-btn" href="/auth/register">Register</a>
+            </li>
+          <% } %>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<% if (successFlash && successFlash.length > 0) { %>
+  <div class="alert alert-success alert-dismissible fade show mb-0 rounded-0" role="alert">
+    <div class="container"><i class="fas fa-check-circle me-2"></i><%= successFlash[0] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  </div>
+<% } %>
+<% if (errorFlash && errorFlash.length > 0) { %>
+  <div class="alert alert-danger alert-dismissible fade show mb-0 rounded-0" role="alert">
+    <div class="container"><i class="fas fa-exclamation-circle me-2"></i><%= errorFlash[0] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  </div>
+<% } %>

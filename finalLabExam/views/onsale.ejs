@@ -1,0 +1,177 @@
+<!-- onsale.ejs — rendered inside layout.ejs via express-ejs-layouts -->
+
+<div class="container py-5">
+
+  <!-- Page Header -->
+  <div class="text-center mb-5">
+    <span class="badge bg-danger fs-6 px-3 py-2 mb-3">
+      <i class="fa-solid fa-fire me-1"></i> SPECIAL OFFERS
+    </span>
+    <h1 class="fw-bold" style="color:#0f172a;">On-Sale Products</h1>
+    <p class="text-muted">
+      <%= products.length %> promotional item<%= products.length !== 1 ? 's' : '' %> available — limited time only!
+    </p>
+  </div>
+
+  <!-- Product List Container — ALL products rendered here, jQuery controls visibility -->
+  <div id="product-list" class="row g-4">
+
+    <% products.forEach(function(product) { %>
+      <div class="col-sm-6 col-lg-4 product-card">
+        <div class="card h-100 shadow-sm border-0" style="border-radius:12px; overflow:hidden;">
+
+          <!-- Sale badge + image -->
+          <div style="position:relative; background:#1e293b; height:180px; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+            <span class="badge bg-danger" style="position:absolute; top:10px; left:10px; font-size:0.75rem; z-index:2;">
+              <i class="fa-solid fa-tag me-1"></i>ON SALE
+            </span>
+            <% if (product.image) { %>
+              <img src="<%= product.image %>"
+                   alt="<%= product.name %>"
+                   style="width:100%; height:100%; object-fit:cover;" />
+            <% } else { %>
+              <i class="fa-solid fa-solar-panel fa-3x text-warning opacity-75"></i>
+            <% } %>
+          </div>
+
+          <!-- Card body -->
+          <div class="card-body d-flex flex-column p-3">
+            <span class="badge bg-secondary mb-2" style="width:fit-content; font-size:0.7rem;">
+              <%= product.category %>
+            </span>
+            <h6 class="fw-bold mb-1" style="color:#0f172a; font-size:0.95rem;">
+              <%= product.name %>
+            </h6>
+            <p class="text-muted small mb-2" style="flex:1; font-size:0.82rem;">
+              <%= product.description %>
+            </p>
+
+            <!-- Rating stars -->
+            <div class="mb-2">
+              <% for(let i = 1; i <= 5; i++) { %>
+                <i class="fa-star <%= i <= product.rating ? 'fa-solid text-warning' : 'fa-regular text-secondary' %>" style="font-size:0.8rem;"></i>
+              <% } %>
+            </div>
+
+            <!-- Price + Stock -->
+            <div class="d-flex justify-content-between align-items-center mt-auto">
+              <span class="fw-bold text-success fs-6">Rs <%= product.price.toLocaleString() %></span>
+              <span class="badge <%= product.stock > 0 ? 'bg-success' : 'bg-danger' %>" style="font-size:0.72rem;">
+                <%= product.stock > 0 ? 'In Stock (' + product.stock + ')' : 'Out of Stock' %>
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    <% }); %>
+
+  </div><!-- end #product-list -->
+
+  <!-- No products message -->
+  <% if (products.length === 0) { %>
+    <div class="text-center py-5">
+      <i class="fa-solid fa-tag fa-3x text-muted mb-3"></i>
+      <h4 class="text-muted">No on-sale products at the moment.</h4>
+      <a href="/products" class="btn btn-warning mt-3">Browse All Products</a>
+    </div>
+  <% } %>
+
+  <!-- ===== PAGINATION CONTROLS ===== -->
+  <% if (products.length > 0) { %>
+  <div id="pagination-controls" class="d-flex justify-content-center align-items-center gap-3 mt-5 pt-3 border-top">
+
+    <!-- Previous Button -->
+    <button id="btn-prev" class="btn btn-outline-warning px-4 fw-semibold" disabled>
+      <i class="fa-solid fa-chevron-left me-1"></i> Previous
+    </button>
+
+    <!-- Page Indicator -->
+    <span id="page-indicator" class="fw-bold text-dark fs-6 px-3 py-2 bg-white rounded shadow-sm border">
+      Page 1 of 1
+    </span>
+
+    <!-- Next Button -->
+    <button id="btn-next" class="btn btn-warning px-4 fw-semibold">
+      Next <i class="fa-solid fa-chevron-right ms-1"></i>
+    </button>
+
+  </div>
+  <% } %>
+
+</div><!-- end .container -->
+
+
+<!-- ===================================================
+     JQUERY PAGINATION SCRIPT
+     - No API calls made
+     - All products already in the DOM
+     - jQuery controls which 10 are visible at a time
+===================================================== -->
+<script>
+$(document).ready(function () {
+
+  // ── State variables ──────────────────────────────────
+  var currentPage  = 1;
+  var itemsPerPage = 10;
+  var $cards       = $("#product-list .product-card");  // all product cards
+  var totalItems   = $cards.length;
+  var totalPages   = Math.ceil(totalItems / itemsPerPage);
+
+  // ── Initial setup: hide ALL cards first ──────────────
+  $cards.hide();
+
+  // ── Function: show the correct 10 cards for a page ───
+  function showPage(page) {
+    // Hide all cards
+    $cards.hide();
+
+    // Calculate which cards to show
+    var startIndex = (page - 1) * itemsPerPage;   // e.g. page 2 = index 10
+    var endIndex   = startIndex + itemsPerPage;    // e.g. page 2 = index 20
+
+    // .slice(start, end) picks cards from startIndex up to (not including) endIndex
+    $cards.slice(startIndex, endIndex).show();
+
+    // Update page indicator text
+    $("#page-indicator").text("Page " + page + " of " + totalPages);
+
+    // Disable Previous button on first page
+    if (page === 1) {
+      $("#btn-prev").prop("disabled", true);
+    } else {
+      $("#btn-prev").prop("disabled", false);
+    }
+
+    // Disable Next button on last page
+    if (page === totalPages) {
+      $("#btn-next").prop("disabled", true);
+    } else {
+      $("#btn-next").prop("disabled", false);
+    }
+  }
+
+  // ── Show page 1 on load ───────────────────────────────
+  showPage(currentPage);
+
+  // ── Next button click ─────────────────────────────────
+  $("#btn-next").on("click", function () {
+    if (currentPage < totalPages) {
+      currentPage++;
+      showPage(currentPage);
+      // Scroll back to top of list smoothly
+      $("html, body").animate({ scrollTop: $("#product-list").offset().top - 80 }, 300);
+    }
+  });
+
+  // ── Previous button click ─────────────────────────────
+  $("#btn-prev").on("click", function () {
+    if (currentPage > 1) {
+      currentPage--;
+      showPage(currentPage);
+      $("html, body").animate({ scrollTop: $("#product-list").offset().top - 80 }, 300);
+    }
+  });
+
+});
+</script>
